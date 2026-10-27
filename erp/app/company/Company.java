@@ -32,10 +32,15 @@ public class Company {
         SuppliedProduct sp = _productSupplies.get(prd); 
         //Not in
         if(sp == null){
-            sp = SuppliedProduct(prd, this, factor, delta);
-
+            if(delta >= 0 && factor > 0){
+                sp = new SuppliedProduct(prd, this, factor, delta);
+                _productSupplies.put(prd, sp);
+            }
         }
-
+        int new_units = sp.units() + delta;
+        if(new_units >= 0 && factor > 0){
+            sp.update(factor, new_units);
+        }
     }
 
     @Override 

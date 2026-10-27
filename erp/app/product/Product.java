@@ -58,8 +58,8 @@ public abstract class Product {
         _suplyInCompany.put(sdp.company().id(), sdp);
     }
 
-    abstract double recommendPrice();
-    abstract String type();
+    public abstract double recommendPrice();
+    public abstract String type();
 
     @Override 
     public boolean equals(Object o){
