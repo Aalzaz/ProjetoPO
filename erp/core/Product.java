@@ -1,19 +1,20 @@
-package erp.app.product;
-
-import erp.app.company.SuppliedProduct;
-import erp.app.company.Company;
+package erp.core;
 
 import java.util.Map;
 import java.util.Objects;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Locale;
 
-public abstract class Product {
+public abstract class Product implements Serializable {
+    @java.io.Serial
+    private static final long serialVersionUID = 202610272000L;
     private String                          _name;
     private int                             _id;
     private ProductCategory                 _category;
     private int                             _basePrice;
     private int                             _baseDeliveryTime;
-    private Map<Integer, SuppliedProduct>   _suplyInCompany;
+    private Map<Integer, SuppliedProduct>   _supliesInCompany;
 
     //Constructor----------------------------------------------------------------------------------
     
@@ -23,7 +24,7 @@ public abstract class Product {
         _category           = category;
         _basePrice          = basePrice;
         _baseDeliveryTime   = baseDeliveryTime;
-        _suplyInCompany     = new HashMap<>();
+        _supliesInCompany     = new HashMap<>();
     }
     //Getters--------------------------------------------------------------------------------------
 
@@ -33,7 +34,7 @@ public abstract class Product {
     public int basePrice(){
         return _basePrice;
     }
-    public int baseDeliveryPrice(){
+    public int baseDeliveryTime(){
         return _baseDeliveryTime;
     }
     public ProductCategory category(){
@@ -44,22 +45,26 @@ public abstract class Product {
     }
     public int totalUnits(){
         int total = 0;
-        for(SuppliedProduct spd: _suplyInCompany.values()){
+        for(SuppliedProduct spd: _supliesInCompany.values()){
             total += spd.units();
         }
         return total;
     }
     public SuppliedProduct supliesCompany(Company cmp){
-        return _suplyInCompany.get(cmp.id());
+        return _supliesInCompany.get(cmp.id());
     }
 
     //----------------------------------------------------------------------------------------------
     public void supplyNewCompany(SuppliedProduct sdp){
-        _suplyInCompany.put(sdp.company().id(), sdp);
+        _supliesInCompany.put(sdp.company().id(), sdp);
     }
 
     public abstract double recommendPrice();
     public abstract String type();
+
+    public boolean hasOrigin(String orig){
+        return false;
+    }
 
     @Override 
     public boolean equals(Object o){
@@ -75,9 +80,10 @@ public abstract class Product {
 
     @Override
     public String toString(){
-        return String.format("%d - %s - %s - %s - %.2f - %.2f - %d - %d",
-            _id, type(), _name, _category, recommendPrice(), 
-            _basePrice, _baseDeliveryTime , totalUnits());
+        //Had float's with ",": 10,00
+        return String.format(Locale.US, "%d - %s - %s - %s - %.2f - %.2f - %d - %d",
+            _id, type(), _name, _category, (double) _basePrice,
+            recommendPrice(), _baseDeliveryTime, totalUnits());
     }
 }
 
