@@ -1,7 +1,8 @@
 package erp.core;
 
 import java.io.Serializable;
-//FIXME maybe import classes
+import java.util.List;
+import java.util.Map;
 
 /**
  * A client's shopping basket at one company: what it intends to buy, and how it
@@ -12,11 +13,21 @@ import java.io.Serializable;
  * fixed by that code; its content is yours to define.</p>
  */
 public class Basket implements Serializable {
-
   @java.io.Serial
   private static final long serialVersionUID = 202608261200L;
+  private Company                   _company;
+  private Map<Product, BasketItem>  _items;
+  private List<AdditionalService>   _services;
+  private TransportModality         _transport;
+  private Purchase                  _purchase;
 
-  //FIXME maybe define attributes
-  //FIXME maybe implement constructor
-  //FIXME maybe implement methods
+  
+
+
+  public Company company(){
+    return _company;
+  }
+
+
+  
 }

@@ -24,7 +24,7 @@ public abstract class Product implements Serializable {
         _category           = category;
         _basePrice          = basePrice;
         _baseDeliveryTime   = baseDeliveryTime;
-        _supliesInCompany     = new HashMap<>();
+        _supliesInCompany   = new HashMap<>();
     }
     //Getters--------------------------------------------------------------------------------------
 

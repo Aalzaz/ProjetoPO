@@ -1,20 +1,25 @@
-package erp.app.product;
-public class ImportedProduct extends Product {
+package erp.core;
+
+public class ImportedProduct extends Product{
     private String _originCountry;
     private double _customTax;
 
     //Constructor----------------------------------------------------------------------------------
     public ImportedProduct(int id, String name, ProductCategory category,
             int basePrice, int baseDeliveryTime, String origin, double tax) {
+        super(id, name, category, basePrice, baseDeliveryTime);
         _originCountry  = origin;
         _customTax      = tax;
-        super(id, name, category, basePrice, baseDeliveryTime);
+        
     }
     //----------------------------------------------------------------------------------------------
+    @Override 
+    public boolean hasOrigin(String orig){
+        return orig.equals(_originCountry);
+    }
     @Override
     public String toString(){
-        return String.format("%s - %s - %.1f", super.toString(), 
-                            _originCountry, _customTax);
+        return super.toString() + " - " + _originCountry + " - " + _customTax;
     }
     @Override
     public String type(){
