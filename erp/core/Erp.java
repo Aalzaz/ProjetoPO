@@ -3,7 +3,7 @@ package erp.core;
 import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
-// FIXME maybe import classes
+
 
 /**
  * The whole ERP system: holds all the state and the domain logic.
@@ -13,9 +13,20 @@ class Erp implements Serializable {
   @java.io.Serial
   private static final long serialVersionUID = 202608261200L;
 
-  //FIXME maybe define attributes
-  //FIXME maybe implement constructor
-  //FIXME maybe implement methods
+    private boolean _modified;
+
+
+  //Constructor----------------------------------------------------------------------------------
+
+  //Getters--------------------------------------------------------------------------------------
+
+  public boolean modified(){ return _modified; }
+
+  //---------------------------------------------------------------------------------------------
+
+  int currentDate(){return 0;} //TODO 
+  void nextDay(){}//TODO
+  void registerClient(String name, String email){}//TODO
 
   /**
    * Read text input file at the beginning of the program and populates the
