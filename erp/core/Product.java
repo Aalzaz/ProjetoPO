@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 
-public abstract class Product implements Serializable {
+public abstract class Product implements Serializable, Comparable<Product>{
 	@java.io.Serial
 	private static final long serialVersionUID = 202610272000L;
 	private String                          _name;
@@ -55,6 +55,12 @@ public abstract class Product implements Serializable {
 
 	public boolean hasOrigin(String orig){
 		return false;
+	}
+	
+	@Override 
+	public int compareTo(Product prd){
+		//The smallest 
+		return _id - prd.id(); 
 	}
 
 	@Override 

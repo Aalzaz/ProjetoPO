@@ -3,6 +3,7 @@ package erp.core;
 import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.TreeMap;
 
 
 /**
@@ -14,6 +15,13 @@ class Erp implements Serializable {
   private static final long serialVersionUID = 202608261200L;
 
     private boolean _modified;
+    private int     _date;
+    private int     _nextProductId;
+    private int     _nextCompanyId;
+    private int     _nextPurchaSeld;
+    private TreeMap<Product, Product> _products;
+    private TreeMap<Company, Company> _companys;
+    private TreeMap<Purchase, Purchase> _purchases;
 
 
   //Constructor----------------------------------------------------------------------------------
@@ -21,12 +29,22 @@ class Erp implements Serializable {
   //Getters--------------------------------------------------------------------------------------
 
   public boolean modified(){ return _modified; }
+  public int date(){ return _date;}
+  public int nextCompanyId(){ return _nextCompanyId;}
+  public int nextPurchaSeld(){ return _nextPurchaSeld;}
+  public int nextProductId(){ return _nextProductId;}
 
   //---------------------------------------------------------------------------------------------
 
-  int currentDate(){return 0;} //TODO 
   void nextDay(){}//TODO
   void registerClient(String name, String email){}//TODO
+
+  void registerNationalProduct(String name, ProductCategory category, int basePrice, int baseDeliveryTime){
+    Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
+    
+    _products.put(prd, prd);
+  }
+  
 
   /**
    * Read text input file at the beginning of the program and populates the

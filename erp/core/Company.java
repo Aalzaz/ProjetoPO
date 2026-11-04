@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
-public class Company implements java.io.Serializable {
+public class Company implements java.io.Serializable, Comparable<Company> {
     @java.io.Serial
     private static final long               serialVersionUID = 202610272000L;
     private int                             _id;
@@ -64,6 +64,12 @@ public class Company implements java.io.Serializable {
         }
         return false;
     }
+    @Override 
+    public int compareTo(Company cmp){
+        //The smallest
+        return _id - cmp.id();
+    }
+
     @Override 
     public boolean equals(Object o){
         if((o instanceof Company cmp)){
