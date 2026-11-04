@@ -20,30 +20,24 @@ public class SuppliedProduct implements Serializable{
         prd.supplyNewCompany(this);
     }
 //Getters--------------------------------------------------------------------------------------
-    public int units(){
-        return _units;
-    }
-    public Company company(){
-        return _company;
-    }
-    public Product product(){
-        return _product;
-    }
-    public double factor(){
-        return _factor;
-    }
 
-//---------------------------------------------------------------------------------------------
-    public double price(){
+    public int units(){ return _units; }
+    public Company company(){ return _company; }
+    public Product product(){ return _product; }
+    public double factor(){ return _factor; }
+    
+    double price(){
         return Math.round(_product.recommendPrice() * _factor);
     }
 
-    public void update(double factor, int units){
+//---------------------------------------------------------------------------------------------
+
+    void update(double factor, int units){
         _factor     = factor;
         _units      = units;
     }
-    public void decrease(int amount) {
-        _units -= amount;
+    void decrease(int amount) {
+        _units -= amount; 
     }
     public boolean isAvailable() {
         return _units > 0;

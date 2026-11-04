@@ -11,11 +11,10 @@ public class NationalProduct extends Product{
     }
     //----------------------------------------------------------------------------------------------
     @Override
-    public String type(){
-        return "NACIONAL";
-    }
+    public String type(){ return "NACIONAL"; }
+    
     @Override 
-    public double recommendPrice() {
+    double recommendPrice() {
     int units = totalUnits();
         if (units > HIGH_QUANT) 
             return basePrice() * HIGH_PCT / 100.0;

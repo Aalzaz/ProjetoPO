@@ -19,15 +19,52 @@ public class Basket implements Serializable {
   private Map<Product, BasketItem>  _items;
   private List<AdditionalService>   _services;
   private TransportModality         _transport;
-  private Purchase                  _purchase;
+  private Client                    _client;
 
+
+  //Constructor----------------------------------------------------------------------------------
   
-
-
-  public Company company(){
-    return _company;
+  public Basket(Client client, Company cmp){
+    _company = cmp;
+    _client  = client;
   }
 
+  //Getters--------------------------------------------------------------------------------------
+  public Company company(){ return _company; }
+  public TransportModality transportModality(){return _transport;}
+
+  //---------------------------------------------------------------------------------------------
+  
+  void addService(AdditionalService addServ){
+    //TODO
+  }
+
+  void setTransportModality(TransportModality tm){
+    //TODO
+  }
+
+  Purchase checkout(int CurrDate, int purchaseSeld){
+    //TODO
+    Purchase p = new Purchase();
+    return p;
+  }
+
+  int update(Product p, int quant){
+    //TODO
+    return 0;
+  }
+
+  public boolean canCheckout(){
+    //TODO
+    return true;
+  }
+  
+  @Override
+  public String toString(){
+    //TODO
+    return "";
+  
+  }
 
   
 }

@@ -14,21 +14,16 @@ public class ImportedProduct extends Product{
     }
     //----------------------------------------------------------------------------------------------
     @Override 
-    public boolean hasOrigin(String orig){
-        return orig.equals(_originCountry);
-    }
+    public boolean hasOrigin(String orig){ return orig.equals(_originCountry); }
+    
     @Override
-    public String toString(){
-        return super.toString() + " - " + _originCountry + " - " + _customTax;
-    }
+    public String toString(){ return super.toString() + " - " + _originCountry + " - " + _customTax; }
+    
     @Override
-    public String type(){
-        return "IMPORTADO";
-    } 
+    public String type(){ return "IMPORTADO"; } 
+    
     @Override 
-    public double recommendPrice(){
-        return basePrice() *(100 + _customTax)/100;
-    }
+    double recommendPrice(){ return basePrice() *(100 + _customTax)/100; }
     
     
 }

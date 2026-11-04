@@ -2,8 +2,11 @@ package erp.core;
 
 import erp.core.exception.ProductNotSuppliedException;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class Company implements java.io.Serializable {
@@ -22,27 +25,28 @@ public class Company implements java.io.Serializable {
     
     //Getters--------------------------------------------------------------------------------------
 
-    public int id(){
-        return  _id;
-    }
-    public String name(){
-        return _name;
-    }
+    public int id(){ return  _id; }
+    public String name(){ return _name; }
+    
     public SuppliedProduct supply(Product prd) throws ProductNotSuppliedException {
         SuppliedProduct sp = _productSupplies.get(prd);
         if (sp == null || sp.units() == 0)
             throw new ProductNotSuppliedException(_id, prd.id());
         return sp;
     }
-    public Collection<SuppliedProduct> supplies() {
-        return _productSupplies.values().stream()
-                .filter(sp -> sp.units() > 0)
-                .toList();
+    public Collection<SuppliedProduct> availableProducts() {
+        List<SuppliedProduct> availableProducts = new ArrayList<>(); 
+        for(SuppliedProduct sp: _productSupplies.values()){
+            if(sp.isAvailable()){
+                availableProducts.add(sp);
+            }
+        }
+        return availableProducts;
     }
 
     //---------------------------------------------------------------------------------------------
 
-    public boolean changeInventory(Product prd, int delta, double factor){
+    boolean changeInventory(Product prd, int delta, double factor){
         SuppliedProduct sp = _productSupplies.get(prd); 
         //Not in
         if(sp == null){
@@ -60,6 +64,18 @@ public class Company implements java.io.Serializable {
         }
         return false;
     }
+    @Override 
+    public boolean equals(Object o){
+        if((o instanceof Company cmp)){
+            return Objects.equals(cmp.id(), _id);
+        }
+        return false;
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(_id);
+    }
+
 
     @Override 
     public String toString(){

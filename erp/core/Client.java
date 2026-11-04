@@ -9,7 +9,7 @@ public class Client implements Serializable{
     private String                  _email;
     private String                  _name;
     private double                  _totalSpent;
-    private Map<Integer, Basket>    _baskets;
+    private Map<Company, Basket>    _baskets;
 
 //Constructor----------------------------------------------------------------------------------
     public Client(String email, String name){
@@ -18,26 +18,21 @@ public class Client implements Serializable{
         _baskets = new HashMap<>();
     }
 //Getters--------------------------------------------------------------------------------------
-    public Basket basketFor(Company cmp) {
-        return _baskets.get(cmp.id());          
-    }
 
-    public String name(){
-        return _name;
-    }
-    public String email(){
-        return _email;
-    }
-    public double totalSpent(){
-        return _totalSpent;
-    }
+    public Basket basketFor(Company cmp) { return _baskets.get(cmp); }
+    public String name(){ return _name; }
+    public String email(){ return _email;}
+    public double totalSpent(){ return _totalSpent; }
 
 //---------------------------------------------------------------------------------------------
-    public void debit(double val){
+    void debit(double val){
         _totalSpent += val;
     }
-    public void addBasket(Basket basket) {
-    _baskets.put(basket.company().id(), basket);
+    boolean addBasket(Basket basket) {
+        if(_baskets.containsKey(basket.company()))
+            return false;
+    _baskets.put(basket.company(), basket);
+    return true;
 }
 
     @Override 
