@@ -27,16 +27,17 @@ public abstract class Product implements Serializable, Comparable<Product>{
 		_supliesInCompany   = new HashMap<>();
 	}
 	//Getters--------------------------------------------------------------------------------------
-
+	
 	public int id() { return _id; }
 	public int basePrice(){ return _basePrice;}
 	public int baseDeliveryTime(){ return _baseDeliveryTime; }
 	public ProductCategory category(){ return _category; }
 	public String name(){ return _name; }
-
+	
 	abstract double recommendPrice();
 	public abstract String type();
-
+	public abstract String extraString();
+	
 	public int totalUnits(){
 		int total = 0;
 		for(SuppliedProduct spd: _supliesInCompany.values()){
@@ -79,8 +80,10 @@ public abstract class Product implements Serializable, Comparable<Product>{
 	public String toString(){
 		//Had float's with ",": 10,00
 		return String.format(Locale.US, "%d - %s - %s - %s - %.2f - %.2f - %d - %d",
-			_id, type(), _name, _category, (double) _basePrice,
-			recommendPrice(), _baseDeliveryTime, totalUnits());
+				_id, type(), _name, _category, (double) _basePrice,
+				recommendPrice(), _baseDeliveryTime, totalUnits())
+			+ extraString();
 	}
+
 }
 

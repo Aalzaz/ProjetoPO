@@ -17,13 +17,13 @@ public class ImportedProduct extends Product{
     public boolean hasOrigin(String orig){ return orig.equals(_originCountry); }
     
     @Override
-    public String toString(){ return super.toString() + " - " + _originCountry + " - " + _customTax; }
-    
-    @Override
     public String type(){ return "IMPORTADO"; } 
     
     @Override 
     double recommendPrice(){ return basePrice() *(100 + _customTax)/100; }
     
-    
+    @Override
+    public String extraString(){
+        return " - " + _originCountry + " - " + _customTax;
+    }
 }

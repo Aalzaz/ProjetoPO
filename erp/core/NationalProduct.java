@@ -22,5 +22,9 @@ public class NationalProduct extends Product{
             return basePrice() * LOW_PCT / 100.0;
     return basePrice();
     }
+    @Override
+    public String extraString(){
+        return "";
+    }
 }
     
