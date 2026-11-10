@@ -9,6 +9,7 @@ import java.util.Locale;
 public abstract class Product implements Serializable, Comparable<Product>{
 	@java.io.Serial
 	private static final long serialVersionUID = 202610272000L;
+	
 	private String                          _name;
 	private int                             _id;
 	private ProductCategory                 _category;
@@ -78,7 +79,6 @@ public abstract class Product implements Serializable, Comparable<Product>{
 
 	@Override
 	public String toString(){
-		//Had float's with ",": 10,00
 		return String.format(Locale.US, "%d - %s - %s - %s - %.2f - %.2f - %d - %d",
 				_id, type(), _name, _category, (double) _basePrice,
 				recommendPrice(), _baseDeliveryTime, totalUnits())

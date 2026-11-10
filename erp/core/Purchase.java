@@ -1,6 +1,7 @@
 package erp.core;
 
 public class Purchase implements Comparable<Purchase> {
+    //TODO
     
     private int _id;
 
