@@ -1,12 +1,15 @@
 package erp.core;
 
+import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.IntegerException;
+
 public class NationalProduct extends Product{
     private static final int HIGH_QUANT = 10000, LOW_QUANT = 100;
     private static final int HIGH_PCT = 90, LOW_PCT = 130;
 
     //Constructor----------------------------------------------------------------------------------
-    public NationalProduct(int id,String name, ProductCategory category,
-            int basePrice, int baseDeliveryTime) {
+    public NationalProduct(int id,String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
+                            throws StringException, IntegerException{
         super(id ,name, category, basePrice, baseDeliveryTime);
     }
     //----------------------------------------------------------------------------------------------

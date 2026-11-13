@@ -1,14 +1,17 @@
 package erp.core;
 
+import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.IntegerException;
+
 public class ImportedProduct extends Product{
     private String _originCountry;
     private double _customTax;
 
     //Constructor----------------------------------------------------------------------------------
-    public ImportedProduct(int id, String name, ProductCategory category,
-            int basePrice, int baseDeliveryTime, String origin, double tax) {
+    public ImportedProduct(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime, String origin, double tax) 
+                            throws StringException, IntegerException{
         super(id, name, category, basePrice, baseDeliveryTime);
-        _originCountry  = origin;
+        _originCountry  = verifiedName(origin, "Páis de origem");
         _customTax      = tax;
         
     }

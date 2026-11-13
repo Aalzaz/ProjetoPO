@@ -2,11 +2,15 @@ package erp.core;
 
 import java.util.Map;
 import java.util.Objects;
+
+import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.IntegerException;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 
-public abstract class Product implements Serializable, Comparable<Product>{
+public abstract class Product implements Serializable, Comparable<Product>, Verifier{
 	@java.io.Serial
 	private static final long serialVersionUID = 202610272000L;
 	
@@ -19,12 +23,13 @@ public abstract class Product implements Serializable, Comparable<Product>{
 
 	//Constructor----------------------------------------------------------------------------------
 	
-	public Product(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime) {
+	public Product(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
+					throws StringException, IntegerException{
 		_id                 = id;
-		_name               = name;
+		_name               = verifiedName(name, "Nome");
 		_category           = category;
-		_basePrice          = basePrice;
-		_baseDeliveryTime   = baseDeliveryTime;
+		_basePrice          = verifiedPositiveInt(basePrice, "Preço");
+		_baseDeliveryTime   = verifiedZeroOrMoreInt(baseDeliveryTime, "Prazo de entrega base");
 		_supliesInCompany   = new HashMap<>();
 	}
 	//Getters--------------------------------------------------------------------------------------
@@ -51,6 +56,7 @@ public abstract class Product implements Serializable, Comparable<Product>{
 	}
 
 	//----------------------------------------------------------------------------------------------
+
 	void supplyNewCompany(SuppliedProduct sdp){
 		_supliesInCompany.put(sdp.company(), sdp);
 	}
