@@ -1,5 +1,6 @@
 package erp.core;
 
+import erp.core.exception.InvalidCompanyNameException;
 import erp.core.exception.ProductNotSuppliedException;
 
 import java.util.ArrayList;
@@ -10,14 +11,15 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class Company implements java.io.Serializable, Comparable<Company> {
-    @java.io.Serial
-    private static final long               serialVersionUID = 202610272000L;
+    
     private int                             _id;
     private String                          _name;
     private Map<Product, SuppliedProduct>   _productSupplies;
 
     //Constructor----------------------------------------------------------------------------------
-    public Company(int id, String name){
+    public Company(int id, String name) throws InvalidCompanyNameException{
+        if(name.length() == 0)
+            throw new InvalidCompanyNameException();
         _id = id;
         _name = name;
         _productSupplies = new TreeMap<>();

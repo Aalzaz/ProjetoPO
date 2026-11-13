@@ -39,6 +39,15 @@ class Erp implements Serializable {
   void nextDay(){}//TODO
   void registerClient(String name, String email){}//TODO
 
+  void registerCompany(String name){
+    try {
+      Company comp = new Company(_nextCompanyId, name);
+    } catch (InvalidCompanyNameException e) {
+      return;
+    }
+    _companys.put()
+  }
+
   void registerNationalProduct(String name, ProductCategory category, int basePrice, int baseDeliveryTime){
     Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
     

@@ -73,5 +73,7 @@ public class ErpManager {
     }
   }
   
-  //FIXME implement other methods
+  public void registerCompany(String name){
+    _erp.registerCompany(name);
+  }
 }
