@@ -18,7 +18,10 @@ public class ErpManager {
     private Erp _erp = new Erp();
 
     //FIXME maybe define constructors
-
+    // --- Getters -----------------------------------------------------------
+    public int getDate () {
+        return _erp.date();
+    }
     // --- persistence -------------------------------------------------------
 
     /**

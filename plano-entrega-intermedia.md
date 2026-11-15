@@ -58,7 +58,7 @@ Não entregar a intermédia dá 0 nessa componente.
 - [ ] O ficheiro só se usa no arranque (§4.2.1, §6)
 
 ### 4. Menu principal (§4.2)
-- [ ] Mostrar data: `Message.currentDate()` (§4.2.2); a data começa em 1 (§1.7)
+- [x] Mostrar data: `Message.currentDate()` (§4.2.2); a data começa em 1 (§1.7)
 - [ ] Avançar data: `Prompt.daysToAdvance()`; só valores positivos, senão não tem efeito; avança dia a dia (§4.2.3, §1.7)
 - [ ] Abrir (§4.2.1): `Prompt.openFile()`, `FileOpenFailedException` se falhar; substitui todo o estado; se houver alterações por guardar, pergunta `Prompt.saveBeforeExit()`
 - [ ] Guardar (§4.2.1): usa o ficheiro associado, senão `Prompt.newSaveAs()`; não faz nada se não houver alterações

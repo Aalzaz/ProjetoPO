@@ -17,6 +17,7 @@ class DoDisplayDate extends Command<ErpManager> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    int date = super._receiver.getDate();
+    _display.addLine(Message.currentDate(date));
   }
 }
