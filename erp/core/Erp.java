@@ -65,7 +65,9 @@ class Erp implements Serializable {
 
 	//---------------------------------------------------------------------------------------------
 
-	void nextDay(){}//TODO
+	void nextDay(){
+		_date++;
+	}
 
 	void updateStock(int companyId, int productId, int units, double factor) 
 						throws UnknownCompanyException, UnknownProductException, InvalidStockOperationException{
@@ -114,6 +116,7 @@ class Erp implements Serializable {
 	 * the state of this application with the domain entities represented in the text file.
 	 * 
 	 * @param filename name of the text input file to process
+	 * @param Parser initialized with the ErpManager
 	 * @throws UnrecognizedEntryException if some entry is not correct
 	 * @throws IOException if there is an IO erro while processing the text file
 	 **/

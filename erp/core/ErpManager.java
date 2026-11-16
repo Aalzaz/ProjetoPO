@@ -80,7 +80,12 @@ public class ErpManager {
 		throw new ImportFileException(filename, e);
 		}
 	}
-	
+//---------------------------------------------------------------------------------------------------------
+
+	public void nextDay(){
+		_erp.nextDay();
+	}
+
 	public void registerCompany(String name) throws InvalidCompanyException{
 		_erp.registerCompany(name);
 	}
