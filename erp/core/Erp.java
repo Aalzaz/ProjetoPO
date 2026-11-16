@@ -1,12 +1,12 @@
 package erp.core;
 
 import erp.core.exception.*;
-import erp.core.exception.parserExceptions.IntegerException;
-import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.*;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,14 +15,15 @@ import java.util.Map;
 class Erp implements Serializable {
 	@java.io.Serial
 	private static final long serialVersionUID = 202608261200L;
-	private boolean _modified;
-	private int     _date;
-	private int     _nextProductId;
-	private int     _nextCompanyId;
-	private int     _nextPurchaSeld;
-	private Map<Product, Product> _products;
-	private Map<Company, Company> _companies;
-	private Map<Purchase, Purchase> _purchases;
+	private boolean 				_modified;
+	private int     				_date;
+	private int     				_nextProductId;
+	private int    					_nextCompanyId;
+	private int     				_nextPurchaSeld;
+	private Map<Integer, Product> 	_products;
+	private Map<Integer, Company> 	_companies;
+	private Map<Integer, Purchase>  _purchases;
+	private Map<String, Client> 	_clients;
 
 
 	//Constructor----------------------------------------------------------------------------------
@@ -36,9 +37,12 @@ class Erp implements Serializable {
 		_products       = new TreeMap<>();
 		_companies      = new TreeMap<>();
 		_purchases      = new TreeMap<>();
+		_clients		= new HashMap<>();
 	} 
 
-	public Erp(int prodId, int compId, int sellId, int date, Map<Product, Product> prods, Map<Company, Company> comps, Map<Purchase, Purchase> purchs){
+	public Erp(int prodId, int compId, int sellId, int date,
+				Map<Integer, Product> prods, Map<Integer, Company> comps, 
+				Map<Integer, Purchase> purchs, Map<String,Client> clients){
 		_nextCompanyId = compId;
 		_nextProductId  = prodId;
 		_nextPurchaSeld = sellId;
@@ -47,6 +51,7 @@ class Erp implements Serializable {
 		_products       = new TreeMap<>(prods);
 		_companies      = new TreeMap<>(comps);
 		_purchases      = new TreeMap<>(purchs);
+		_clients		= new HashMap<>(clients);
 		
 	}
 
@@ -61,24 +66,38 @@ class Erp implements Serializable {
 	//---------------------------------------------------------------------------------------------
 
 	void nextDay(){}//TODO
-	void registerClient(String name, String email){}//TODO
 
-	void registerCompany(String name) throws StringException{
+	void updateStock(int companyId, int productId, int units, double factor) 
+						throws UnknownCompanyException, UnknownProductException{
+
+
+	}
+
+	void registerClient(String name, String email) throws InvalidClient{
+		Client client = new Client(email, name);
+
+		if(_clients.containsKey(name))
+			throw new InvalidClient(email, "Email em uso por outro cliente");
+
+		_clients.put(name, client);
+
+	}
+
+	void registerCompany(String name) throws InvalidCompany{
 		Company comp = new Company(_nextCompanyId, name);
-		_companies.put(comp, comp);
+		_companies.put(comp.id(), comp);
 		_nextCompanyId++;
 	}
-	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) 
-									throws StringException, IntegerException{
+	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProduct{
 		Product prd = new ImportedProduct(_nextProductId, name, category, basePrice, baseDelay, originCounty, customTax);
-		_products.put(prd, prd);
+		_products.put(prd.id(), prd);
 		_nextProductId++;
 
 	}
 
-	void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws StringException, IntegerException{
+	void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProduct{
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
-		_products.put(prd, prd);
+		_products.put(prd.id(), prd);
 	}
 	
 

@@ -7,8 +7,7 @@ import java.io.IOException;
 
 
 import erp.core.exception.UnrecognizedEntryException;
-import erp.core.exception.parserExceptions.IntegerException;
-import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.*;
 
 class Parser {
     ErpManager _erpMan;
@@ -51,7 +50,7 @@ class Parser {
                 default:
                     throw new UnrecognizedEntryException("Entrada inválida: " + line);
             }
-        } catch(StringException | IntegerException e){
+        } catch(InvalidCompany | InvalidProduct | InvalidClient e){
             throw new UnrecognizedEntryException("Erro ao processar linha " + line + "Erro = " + e.getMessage() );
         }
     }
@@ -60,28 +59,28 @@ class Parser {
             throw new UnrecognizedEntryException("Número inválido de campos (" + components.length + ") na linha: " + line);
     }
     // COMPANY:nome
-    private void parseCompany(String[] components, String line) throws UnrecognizedEntryException, StringException, IntegerException {
+    private void parseCompany(String[] components, String line) throws UnrecognizedEntryException, InvalidCompany {
         checkCorrectNumberOfFields(components, 2, line );
         _erpMan.registerCompany(components[1]);
     }
 
      // IMPORTED:nome:prec¸oBase:categoria:prazo:paisOrigem:taxa
-    private void parseImported(String[] components, String line) throws UnrecognizedEntryException, StringException, IntegerException {
+    private void parseImported(String[] components, String line) throws UnrecognizedEntryException, InvalidProduct {
         checkCorrectNumberOfFields(components, 7, line);
         _erpMan.registerImportedProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
-                                     Integer.valueOf(components[4]), components[5], Double.valueOf(components[6]));
+                                    Integer.valueOf(components[4]), components[5], Double.valueOf(components[6]));
     }
 
 
   // NATIONAL:nome:prec¸oBase:categoria:prazo
-    private void parseNational(String[] components, String line) throws UnrecognizedEntryException, StringException, IntegerException {
+    private void parseNational(String[] components, String line) throws UnrecognizedEntryException, InvalidProduct {
         checkCorrectNumberOfFields(components, 5, line);
         _erpMan.registerNationalProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
-                                     Integer.valueOf(components[4]));
+                                    Integer.valueOf(components[4]));
     }
-  
+
   // CLIENT:nome:email
-    private void parseClient(String[] components, String line) throws UnrecognizedEntryException {
+    private void parseClient(String[] components, String line) throws UnrecognizedEntryException, InvalidClient {
         checkCorrectNumberOfFields(components, 3, line);
         _erpMan.registerClient(components[1], components[2]);
     }
@@ -90,9 +89,9 @@ class Parser {
     private void parseSupply(String[] components, String line) throws UnrecognizedEntryException {
         checkCorrectNumberOfFields(components, 5, line);
         _erpMan.updateStock(Integer.valueOf(components[1]), Integer.valueOf(components[2]),
-                         Integer.valueOf(components[3]), Double.valueOf(components[4]));
+                        Integer.valueOf(components[3]), Double.valueOf(components[4]));
     }
- 
+
   // RATE:modalidade:custo:dias;
     private void parseRate(String[] components, String line) throws UnrecognizedEntryException {
         checkCorrectNumberOfFields(components, 4, line);

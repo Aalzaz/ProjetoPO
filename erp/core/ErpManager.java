@@ -1,8 +1,8 @@
 package erp.core;
 
 import erp.core.exception.*;
-import erp.core.exception.parserExceptions.IntegerException;
-import erp.core.exception.parserExceptions.StringException;
+import erp.core.exception.parserExceptions.*;
+
 
 import java.io.*;
 
@@ -79,15 +79,17 @@ public class ErpManager {
         }
     }
     
-    public void registerCompany(String name) throws StringException{
+    public void registerCompany(String name) throws InvalidCompany{
         _erp.registerCompany(name);
     }
-    public void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws StringException, IntegerException{
+    public void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProduct{
         _erp.registerNationalProduct(name, basePrice, category,  baseDeliveryTime);
     }
 
-    public void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) 
-        throws StringException, IntegerException{
+    public void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProduct{
         _erp.registerImportedProduct(name, basePrice, category, baseDelay, originCounty, customTax);
+    }
+    public void registerClient(String name, String email) throws InvalidClient{
+      _erp.registerClient(name, email);
     }
 }

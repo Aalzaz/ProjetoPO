@@ -1,7 +1,6 @@
 package erp.core;
 
-import erp.core.exception.parserExceptions.StringException;
-import erp.core.exception.parserExceptions.IntegerException;
+import erp.core.exception.parserExceptions.InvalidProduct;
 
 public class NationalProduct extends Product{
     private static final int HIGH_QUANT = 10000, LOW_QUANT = 100;
@@ -9,7 +8,7 @@ public class NationalProduct extends Product{
 
     //Constructor----------------------------------------------------------------------------------
     public NationalProduct(int id,String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
-                            throws StringException, IntegerException{
+                            throws InvalidProduct{
         super(id ,name, category, basePrice, baseDeliveryTime);
     }
     //----------------------------------------------------------------------------------------------

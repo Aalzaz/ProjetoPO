@@ -3,14 +3,13 @@ package erp.core;
 import java.util.Map;
 import java.util.Objects;
 
-import erp.core.exception.parserExceptions.StringException;
-import erp.core.exception.parserExceptions.IntegerException;
+import erp.core.exception.parserExceptions.InvalidProduct;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 
-public abstract class Product implements Serializable, Comparable<Product>, Verifier{
+public abstract class Product implements Serializable, Comparable<Product> {
 	@java.io.Serial
 	private static final long serialVersionUID = 202610272000L;
 	
@@ -19,17 +18,18 @@ public abstract class Product implements Serializable, Comparable<Product>, Veri
 	private ProductCategory                 _category;
 	private int                             _basePrice;
 	private int                             _baseDeliveryTime;
-	private Map<Company, SuppliedProduct>   _supliesInCompany;
+	private Map<Integer, SuppliedProduct>   _supliesInCompany;
 
 	//Constructor----------------------------------------------------------------------------------
 	
 	public Product(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
-					throws StringException, IntegerException{
+					throws InvalidProduct{
+		verify(name, basePrice, baseDeliveryTime);
 		_id                 = id;
-		_name               = verifiedName(name, "Nome");
+		_name               = name;
 		_category           = category;
-		_basePrice          = verifiedPositiveInt(basePrice, "Preço");
-		_baseDeliveryTime   = verifiedZeroOrMoreInt(baseDeliveryTime, "Prazo de entrega base");
+		_basePrice          = basePrice;
+		_baseDeliveryTime   = baseDeliveryTime;
 		_supliesInCompany   = new HashMap<>();
 	}
 	//Getters--------------------------------------------------------------------------------------
@@ -52,13 +52,32 @@ public abstract class Product implements Serializable, Comparable<Product>, Veri
 		return total;
 	}
 	public SuppliedProduct suplyInCompany(Company cmp){
-		return _supliesInCompany.get(cmp);
+		return _supliesInCompany.get(cmp.id());
 	}
 
 	//----------------------------------------------------------------------------------------------
 
+	protected void verify(String name, int basePrice, int baseDeliveryTime) throws InvalidProduct{
+		nameVerifier(name, "NOME");
+		positiveIntVerifier(basePrice, false, "PREÇO BASE");
+		positiveIntVerifier(baseDeliveryTime, true,"PRAZO DE ENTREGA BASE");
+	}
+
+	protected void positiveIntVerifier(int i, boolean includeZero, String field) throws InvalidProduct{
+		if(includeZero && i < 0)
+			throw new InvalidProduct(field, "Deve ser um inteiro maior ou igual a zero");
+		if(!includeZero && i <= 0){
+			throw new InvalidProduct(field, "Deve ser um inteiro positvo");
+		}
+	}
+
+	protected void nameVerifier(String name, String field) throws InvalidProduct{
+        if(name == null || name.length() == 0)
+            throw new InvalidProduct(field, "Deve ser não vazia");
+    }
+
 	void supplyNewCompany(SuppliedProduct sdp){
-		_supliesInCompany.put(sdp.company(), sdp);
+		_supliesInCompany.put(sdp.company().id(), sdp);
 	}
 
 	public boolean hasOrigin(String orig){
@@ -77,10 +96,6 @@ public abstract class Product implements Serializable, Comparable<Product>, Veri
 			return Objects.equals(prd.id(), _id);
 		}
 		return false;
-	}
-	@Override
-	public int hashCode(){
-		return Objects.hash(_id);
 	}
 
 	@Override
