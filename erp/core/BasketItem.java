@@ -1,5 +1,7 @@
 package erp.core;
 
-public class BasketItem {
-    //TODO
+import java.io.Serializable;
+
+public class BasketItem implements Serializable {
+	//TODO
 }

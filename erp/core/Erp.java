@@ -1,8 +1,7 @@
 package erp.core;
 
-import erp.app.exception.UnknownCompanyKeyException;
 import erp.core.exception.*;
-import erp.core.exception.parserExceptions.*;
+
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,7 +31,7 @@ class Erp implements Serializable {
 	public Erp(){
 		_nextCompanyId  = 1;
 		_nextProductId  = 1;
-		_nextPurchaSeld = 1;
+		_nextPurchaSeld	= 1;
 		_date           = 1;
 		_modified       = false;
 		_products       = new TreeMap<>();
@@ -44,7 +43,7 @@ class Erp implements Serializable {
 	public Erp(int prodId, int compId, int sellId, int date,
 				Map<Integer, Product> prods, Map<Integer, Company> comps, 
 				Map<Integer, Purchase> purchs, Map<String,Client> clients){
-		_nextCompanyId = compId;
+		_nextCompanyId  = compId;
 		_nextProductId  = prodId;
 		_nextPurchaSeld = sellId;
 		_date           = date;
@@ -52,7 +51,7 @@ class Erp implements Serializable {
 		_products       = new TreeMap<>(prods);
 		_companies      = new TreeMap<>(comps);
 		_purchases      = new TreeMap<>(purchs);
-		_clients		= new HashMap<>(clients);
+		_clients        = new HashMap<>(clients);
 		
 	}
 
@@ -69,23 +68,23 @@ class Erp implements Serializable {
 	void nextDay(){}//TODO
 
 	void updateStock(int companyId, int productId, int units, double factor) 
-						throws UnknownCompanyException, UnknownProductException{
+						throws UnknownCompanyException, UnknownProductException, InvalidStockOperationException{
 		if(!_companies.containsKey(companyId))
 			throw new UnknownCompanyException(companyId);
 		if(!_products.containsKey(productId))
 			throw new UnknownProductException(productId);
-		if(_products.get(companyId).suplyInCompany())
-
-
+		Company cmp = _companies.get(companyId);
+		Product prd = _products.get(productId);
+		cmp.changeInventory(prd, units, factor);
 	}
 
 	void registerClient(String name, String email) throws InvalidClientException{
 		Client client = new Client(email, name);
 
-		if(_clients.containsKey(name))
+		if(_clients.containsKey(email))
 			throw new InvalidClientException(email, "Email em uso por outro cliente");
 
-		_clients.put(name, client);
+		_clients.put(email, client);
 
 	}
 
@@ -106,6 +105,7 @@ class Erp implements Serializable {
 								throws InvalidProductException{
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
 		_products.put(prd.id(), prd);
+		_nextProductId++;
 	}
 	
 
@@ -117,8 +117,7 @@ class Erp implements Serializable {
 	 * @throws UnrecognizedEntryException if some entry is not correct
 	 * @throws IOException if there is an IO erro while processing the text file
 	 **/
-	void importFile(String filename) throws UnrecognizedEntryException, IOException
-						/* FIXME maybe other exceptions */ {
-		//FIXME implement method
+	void importFile(String filename, Parser parser) throws UnrecognizedEntryException, IOException {
+		parser.parserFile(filename);
 	}
 }

@@ -6,17 +6,16 @@ package erp.core.exception;
  * (represented By UnrecognizedEntryException).
  **/
 public class ImportFileException extends Exception {
+	@java.io.Serial
+	private static final long serialVersionUID = 202607021200L;
 
-  @java.io.Serial
-  private static final long serialVersionUID = 202607021200L;
-  
-  private static final String ERROR_MESSAGE = "Erro a processar ficheiro de import: ";
-  
-  public ImportFileException(String filename) {
-    super(ERROR_MESSAGE + filename);
-  }
-  
-  public ImportFileException(String filename, Exception cause) {
-    super(ERROR_MESSAGE + filename, cause);
-  }
+	private static final String ERROR_MESSAGE = "Erro a processar ficheiro de import: ";
+
+	public ImportFileException(String filename) {
+		super(ERROR_MESSAGE + filename);
+	}
+
+	public ImportFileException(String filename, Exception cause) {
+		super(ERROR_MESSAGE + filename, cause);
+	}
 }

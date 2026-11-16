@@ -13,58 +13,58 @@ import java.util.Map;
  * fixed by that code; its content is yours to define.</p>
  */
 public class Basket implements Serializable {
-  @java.io.Serial
-  private static final long serialVersionUID = 202608261200L;
-  private Company                   _company;
-  private Map<Product, BasketItem>  _items;
-  private List<AdditionalService>   _services;
-  private TransportModality         _transport;
-  private Client                    _client;
+	@java.io.Serial
+	private static final long serialVersionUID = 202608261200L;
+	private Company                   _company;
+	private Map<Product, BasketItem>  _items;
+	private List<AdditionalService>   _services;
+	private TransportModality         _transport;
+	private Client                    _client;
 
 
-  //Constructor----------------------------------------------------------------------------------
-  
-  public Basket(Client client, Company cmp){
-    _company = cmp;
-    _client  = client;
-  }
+	//Constructor----------------------------------------------------------------------------------
+	
+	public Basket(Client client, Company cmp){
+	_company = cmp;
+	_client  = client;
+	}
 
-  //Getters--------------------------------------------------------------------------------------
-  public Company company(){ return _company; }
-  public TransportModality transportModality(){return _transport;}
+	//Getters--------------------------------------------------------------------------------------
+	public Company company(){ return _company; }
+	public TransportModality transportModality(){return _transport;}
 
-  //---------------------------------------------------------------------------------------------
-  
-  void addService(AdditionalService addServ){
-    //TODO
-  }
+	//---------------------------------------------------------------------------------------------
+	
+	void addService(AdditionalService addServ){
+	//TODO
+	}
 
-  void setTransportModality(TransportModality tm){
-    //TODO
-  }
+	void setTransportModality(TransportModality tm){
+	//TODO
+	}
 
-  Purchase checkout(int CurrDate, int purchaseSeld){
-    //TODO
-    Purchase p = new Purchase();
-    return p;
-  }
+	Purchase checkout(int CurrDate, int purchaseSeld){
+	//TODO
+	Purchase p = new Purchase();
+	return p;
+	}
 
-  int update(Product p, int quant){
-    //TODO
-    return 0;
-  }
+	int update(Product p, int quant){
+	//TODO
+	return 0;
+	}
 
-  public boolean canCheckout(){
-    //TODO
-    return true;
-  }
-  
-  @Override
-  public String toString(){
-    //TODO
-    return "";
-  
-  }
+	public boolean canCheckout(){
+	//TODO
+	return true;
+	}
+	
+	@Override
+	public String toString(){
+	//TODO
+	return "";
+	
+	}
 
-  
+	
 }

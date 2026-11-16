@@ -6,21 +6,21 @@ package erp.core.exception;
  */
 public class UnrecognizedEntryException extends Exception {
 
-  @java.io.Serial
-  private static final long serialVersionUID = 202607021200L;
+	@java.io.Serial
+	private static final long serialVersionUID = 202607021200L;
 
-  private final String _entrySpecification;
-  
-  public UnrecognizedEntryException(String entrySpecification) {
-    _entrySpecification = entrySpecification;
-  }
-  
-  public UnrecognizedEntryException(String entrySpecification, Exception cause) {
-    super(cause);
-    _entrySpecification = entrySpecification;
-  }
-  
-  public String getEntrySpecification() {
-    return _entrySpecification;
-  }
+	private final String _entrySpecification;
+
+	public UnrecognizedEntryException(String entrySpecification) {
+		_entrySpecification = entrySpecification;
+	}
+
+	public UnrecognizedEntryException(String entrySpecification, Exception cause) {
+		super(cause);
+		_entrySpecification = entrySpecification;
+	}
+
+	public String getEntrySpecification() {
+		return _entrySpecification;
+	}
 }

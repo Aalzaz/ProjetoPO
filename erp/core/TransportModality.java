@@ -1,5 +1,7 @@
 package erp.core;
 
-public class TransportModality {
-    //TODO
+import java.io.Serializable;
+
+public class TransportModality implements Serializable {
+	//TODO
 }

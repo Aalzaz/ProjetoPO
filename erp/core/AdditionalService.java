@@ -1,5 +1,7 @@
 package erp.core;
 
-public class AdditionalService {
-    //TODO
+import java.io.Serializable;
+
+public class AdditionalService implements Serializable {
+	//TODO
 }

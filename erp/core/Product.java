@@ -1,9 +1,8 @@
 package erp.core;
 
 import java.util.Map;
-import java.util.Objects;
 
-import erp.core.exception.parserExceptions.InvalidProductException;
+import erp.core.exception.InvalidProductException;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -72,9 +71,9 @@ public abstract class Product implements Serializable, Comparable<Product> {
 	}
 
 	protected void nameVerifier(String name, String field) throws InvalidProductException{
-        if(name == null || name.length() == 0)
-            throw new InvalidProductException(field, "Deve ser não vazia");
-    }
+		if(name == null || name.length() == 0)
+			throw new InvalidProductException(field, "Deve ser não vazia");
+	}
 
 	void supplyNewCompany(SuppliedProduct sdp){
 		_supliesInCompany.put(sdp.company().id(), sdp);
@@ -90,13 +89,6 @@ public abstract class Product implements Serializable, Comparable<Product> {
 		return _id - prd.id(); 
 	}
 
-	@Override 
-	public boolean equals(Object o){
-		if((o instanceof Product prd)){
-			return Objects.equals(prd.id(), _id);
-		}
-		return false;
-	}
 
 	@Override
 	public String toString(){
