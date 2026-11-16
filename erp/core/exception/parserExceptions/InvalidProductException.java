@@ -1,10 +1,10 @@
 package erp.core.exception.parserExceptions;
 
-public class InvalidClient extends ParserException{
+public class InvalidProductException extends ParserException{
     private String _field;
     private String _correction;
     
-    public InvalidClient(String field, String correction){
+    public InvalidProductException(String field, String correction){
         _field = field;
         _correction = correction;
     }
@@ -14,4 +14,3 @@ public class InvalidClient extends ParserException{
         return "Campo: " + _field + " - " + _correction + ".";
     }
 }
-

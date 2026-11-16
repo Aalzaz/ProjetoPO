@@ -1,6 +1,6 @@
 package erp.core.exception.parserExceptions;
 
-public class InvalidCompany  extends ParserException{
+public class InvalidCompanyException  extends ParserException{
     
     @Override
     public String getMessage() {

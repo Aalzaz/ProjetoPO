@@ -1,8 +1,9 @@
 package erp.core;
 
-import erp.core.exception.ProductNotSuppliedException;
 import erp.core.exception.parserExceptions.InvalidCompany;
-
+import erp.core.exception.parserExceptions.InvalidCompanyException;
+import erp.core.exception.parserExceptions.InvalidStockOperetionException;
+import erp.core.exception.parserExceptions.ProductNotSuppliedException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class Company implements java.io.Serializable, Comparable<Company> {
     private Map<Integer, SuppliedProduct>   _productSupplies;
 
     //Constructor----------------------------------------------------------------------------------
-    public Company(int id, String name) throws InvalidCompany{
+    public Company(int id, String name) throws InvalidCompanyException{
         nameVerifier(name);
         _id = id;
         _name = name;
@@ -49,29 +50,29 @@ public class Company implements java.io.Serializable, Comparable<Company> {
     //---------------------------------------------------------------------------------------------
 
 
-    private void nameVerifier(String name) throws InvalidCompany{
+    private void nameVerifier(String name) throws InvalidCompanyException{
         if(name == null || name.length() == 0)
-            throw new InvalidCompany();
+            throw new InvalidCompanyException();
     }
 
-    boolean changeInventory(Product prd, int delta, double factor){
+    void changeInventory(Product prd, int delta, double factor) throws InvalidStockOperetionException{
         SuppliedProduct sp = _productSupplies.get(prd.id()); 
         //Not in
         if(sp == null){
-            if(delta >= 0 && factor > 0){
-                sp = new SuppliedProduct(prd, this, factor, delta);
-                _productSupplies.put(prd.id(), sp);
-                return true;
-            }
-            return false;
+            if(delta < 0 && factor <= 0)
+            sp = new SuppliedProduct(prd, this, factor, delta);
+            _productSupplies.put(prd.id(), sp);
+            return;
         }
         int new_units = sp.units() + delta;
         if(new_units >= 0 && factor > 0){
             sp.update(factor, new_units);
-            return true;
         }
-        return false;
     }
+    private void verifyDeltaAndFactor(int delta, double factor) throws InvalidStockOperetionException{
+        if(delta < 0)
+    }
+
     @Override 
     public int compareTo(Company cmp){
         //The smallest

@@ -1,6 +1,6 @@
 package erp.core;
 
-import erp.core.exception.parserExceptions.InvalidProduct;
+import erp.core.exception.parserExceptions.InvalidProductException;
 
 public class ImportedProduct extends Product{
     private String _originCountry;
@@ -8,7 +8,7 @@ public class ImportedProduct extends Product{
 
     //Constructor----------------------------------------------------------------------------------
     public ImportedProduct(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime, String origin, double tax) 
-                            throws InvalidProduct{
+                            throws InvalidProductException{
         super(id, name, category, basePrice, baseDeliveryTime);
         nameVerifier(origin, "PAÍS DE ORIGEM");
         _originCountry  = origin;

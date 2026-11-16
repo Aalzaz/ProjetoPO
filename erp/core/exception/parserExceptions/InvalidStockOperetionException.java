@@ -1,10 +1,10 @@
 package erp.core.exception.parserExceptions;
 
-public class InvalidProduct extends ParserException{
+public class InvalidStockOperetionException extends ParserException {
     private String _field;
     private String _correction;
     
-    public InvalidProduct(String field, String correction){
+    public InvalidStockOperetionException(String field, String correction){
         _field = field;
         _correction = correction;
     }

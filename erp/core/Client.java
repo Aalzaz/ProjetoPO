@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import erp.core.exception.parserExceptions.InvalidClient;
+import erp.core.exception.parserExceptions.InvalidClientException;
 
 
 public class Client implements Serializable{
@@ -16,7 +16,7 @@ public class Client implements Serializable{
     private Map<Integer, Basket>    _baskets;
 
 //Constructor----------------------------------------------------------------------------------
-    public Client(String email, String name) throws InvalidClient{
+    public Client(String email, String name) throws InvalidClientException{
         verify(name, email);
         _name  = name;
         _email = email;
@@ -30,14 +30,14 @@ public class Client implements Serializable{
     public double totalSpent(){ return _totalSpent; }
 
 //---------------------------------------------------------------------------------------------
-    private void verify(String name, String email) throws InvalidClient{
+    private void verify(String name, String email) throws InvalidClientException{
         stringVerifier(name);
         stringVerifier(email);
     }
 
-    private void stringVerifier(String name) throws InvalidClient{
+    private void stringVerifier(String name) throws InvalidClientException{
         if(name == null || name.length() == 0)
-            throw new InvalidClient("NOME", "Não dever ser vazio/nulo");
+            throw new InvalidClientException("NOME", "Não dever ser vazio/nulo");
     }
 
 

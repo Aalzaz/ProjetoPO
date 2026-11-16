@@ -79,17 +79,17 @@ public class ErpManager {
         }
     }
     
-    public void registerCompany(String name) throws InvalidCompany{
+    public void registerCompany(String name) throws InvalidCompanyException{
         _erp.registerCompany(name);
     }
-    public void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProduct{
+    public void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProductException{
         _erp.registerNationalProduct(name, basePrice, category,  baseDeliveryTime);
     }
 
-    public void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProduct{
+    public void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProductException{
         _erp.registerImportedProduct(name, basePrice, category, baseDelay, originCounty, customTax);
     }
-    public void registerClient(String name, String email) throws InvalidClient{
+    public void registerClient(String name, String email) throws InvalidClientException{
       _erp.registerClient(name, email);
     }
 }

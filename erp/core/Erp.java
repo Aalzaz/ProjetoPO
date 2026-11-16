@@ -1,5 +1,6 @@
 package erp.core;
 
+import erp.app.exception.UnknownCompanyKeyException;
 import erp.core.exception.*;
 import erp.core.exception.parserExceptions.*;
 
@@ -69,33 +70,40 @@ class Erp implements Serializable {
 
 	void updateStock(int companyId, int productId, int units, double factor) 
 						throws UnknownCompanyException, UnknownProductException{
+		if(!_companies.containsKey(companyId))
+			throw new UnknownCompanyException(companyId);
+		if(!_products.containsKey(productId))
+			throw new UnknownProductException(productId);
+		if(_products.get(companyId).suplyInCompany())
 
 
 	}
 
-	void registerClient(String name, String email) throws InvalidClient{
+	void registerClient(String name, String email) throws InvalidClientException{
 		Client client = new Client(email, name);
 
 		if(_clients.containsKey(name))
-			throw new InvalidClient(email, "Email em uso por outro cliente");
+			throw new InvalidClientException(email, "Email em uso por outro cliente");
 
 		_clients.put(name, client);
 
 	}
 
-	void registerCompany(String name) throws InvalidCompany{
+	void registerCompany(String name) throws InvalidCompanyException{
 		Company comp = new Company(_nextCompanyId, name);
 		_companies.put(comp.id(), comp);
 		_nextCompanyId++;
 	}
-	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProduct{
+	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, 
+								String originCounty, Double customTax) throws InvalidProductException {
 		Product prd = new ImportedProduct(_nextProductId, name, category, basePrice, baseDelay, originCounty, customTax);
 		_products.put(prd.id(), prd);
 		_nextProductId++;
 
 	}
 
-	void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProduct{
+	void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) 
+								throws InvalidProductException{
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
 		_products.put(prd.id(), prd);
 	}

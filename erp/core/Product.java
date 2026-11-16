@@ -3,7 +3,7 @@ package erp.core;
 import java.util.Map;
 import java.util.Objects;
 
-import erp.core.exception.parserExceptions.InvalidProduct;
+import erp.core.exception.parserExceptions.InvalidProductException;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public abstract class Product implements Serializable, Comparable<Product> {
 	//Constructor----------------------------------------------------------------------------------
 	
 	public Product(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
-					throws InvalidProduct{
+					throws InvalidProductException{
 		verify(name, basePrice, baseDeliveryTime);
 		_id                 = id;
 		_name               = name;
@@ -57,23 +57,23 @@ public abstract class Product implements Serializable, Comparable<Product> {
 
 	//----------------------------------------------------------------------------------------------
 
-	protected void verify(String name, int basePrice, int baseDeliveryTime) throws InvalidProduct{
+	protected void verify(String name, int basePrice, int baseDeliveryTime) throws InvalidProductException{
 		nameVerifier(name, "NOME");
 		positiveIntVerifier(basePrice, false, "PREÇO BASE");
 		positiveIntVerifier(baseDeliveryTime, true,"PRAZO DE ENTREGA BASE");
 	}
 
-	protected void positiveIntVerifier(int i, boolean includeZero, String field) throws InvalidProduct{
+	protected void positiveIntVerifier(int i, boolean includeZero, String field) throws InvalidProductException{
 		if(includeZero && i < 0)
-			throw new InvalidProduct(field, "Deve ser um inteiro maior ou igual a zero");
+			throw new InvalidProductException(field, "Deve ser um inteiro maior ou igual a zero");
 		if(!includeZero && i <= 0){
-			throw new InvalidProduct(field, "Deve ser um inteiro positvo");
+			throw new InvalidProductException(field, "Deve ser um inteiro positvo");
 		}
 	}
 
-	protected void nameVerifier(String name, String field) throws InvalidProduct{
+	protected void nameVerifier(String name, String field) throws InvalidProductException{
         if(name == null || name.length() == 0)
-            throw new InvalidProduct(field, "Deve ser não vazia");
+            throw new InvalidProductException(field, "Deve ser não vazia");
     }
 
 	void supplyNewCompany(SuppliedProduct sdp){
