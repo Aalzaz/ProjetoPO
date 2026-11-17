@@ -1,6 +1,10 @@
 package erp.app.main;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import erp.core.ErpManager;
+import erp.core.exception.MissingFileAssociationException;
 import pt.tecnico.uilib.menus.Command;
 //FIXME maybe import classes
 
@@ -13,11 +17,26 @@ class DoSaveFile extends Command<ErpManager> {
 
   DoSaveFile(ErpManager receiver) {
     super(Label.SAVE_FILE, receiver);
-    //FIXME maybe define fields
+    if (super._receiver.isModified() == false) {
+      addStringField("nameFile", Prompt.newSaveAs());
+    }
   }
 
   @Override
   protected final void execute() {
-    //FIXME implement command
+    if (super._receiver.isModified()) {
+      try {
+        super._receiver.save();
+      }
+      catch (FileNotFoundException e) {
+        // TODO handle file not found
+      }
+      catch (MissingFileAssociationException e) {
+        // TODO create new file and save there
+      }
+      catch (IOException e) {
+        // TODO handle stream exception
+      }
+    }
   }
 }
