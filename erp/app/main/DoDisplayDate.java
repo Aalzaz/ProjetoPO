@@ -9,13 +9,13 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoDisplayDate extends Command<ErpManager> {
 
-  DoDisplayDate(ErpManager receiver) {
-    super(Label.DISPLAY_DATE, receiver);
-  }
+	DoDisplayDate(ErpManager receiver) {
+		super(Label.DISPLAY_DATE, receiver);
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    int date = super._receiver.getDate();
-    _display.popup(Message.currentDate(date));
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		int date = super._receiver.getDate();
+		_display.popup(Message.currentDate(date));
+	}
 }

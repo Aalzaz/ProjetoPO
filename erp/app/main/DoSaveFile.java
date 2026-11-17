@@ -15,28 +15,37 @@ import pt.tecnico.uilib.menus.Command;
  */
 class DoSaveFile extends Command<ErpManager> {
 
-  DoSaveFile(ErpManager receiver) {
+    DoSaveFile(ErpManager receiver) {
     super(Label.SAVE_FILE, receiver);
-    if (super._receiver.isModified() == false) {
-      addStringField("nameFile", Prompt.newSaveAs());
     }
-  }
 
-  @Override
-  protected final void execute() {
-    if (super._receiver.isModified()) {
-      try {
-        super._receiver.save();
-      }
-      catch (FileNotFoundException e) {
-        // TODO handle file not found
-      }
-      catch (MissingFileAssociationException e) {
-        // TODO create new file and save there
-      }
-      catch (IOException e) {
-        // TODO handle stream exception
-      }
+    @Override
+    protected final void execute() {
+		try {
+			super._receiver.save();
+		}
+		catch (FileNotFoundException e) {
+        	// TODO handle file not found
+		}
+		catch (MissingFileAssociationException e) {
+			if (super._receiver.hasUnsavedChanges() == true) {
+				addStringField("fileName", Prompt.newSaveAs());
+				try {
+					super._receiver.saveAs(stringField("fileName"));
+				}
+				catch (FileNotFoundException ex) {
+					// TODO handle file not found
+				}
+				catch (MissingFileAssociationException ex) {
+					//TODO
+				}
+				catch (IOException ex) {
+					//TODO
+				}
+			}
+		}
+		catch (IOException e) {
+        	// TODO handle stream exception
+		}
     }
-  }
 }
