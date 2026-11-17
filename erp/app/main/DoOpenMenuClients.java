@@ -9,12 +9,12 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoOpenMenuClients extends Command<ErpManager> {
 
-  DoOpenMenuClients(ErpManager receiver) {
-    super(Label.OPEN_MENU_CLIENTS, receiver);
-  }
+	DoOpenMenuClients(ErpManager receiver) {
+		super(Label.OPEN_MENU_CLIENTS, receiver);
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    (new erp.app.client.Menu(_receiver)).open();
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		(new erp.app.client.Menu(_receiver)).open();
+	}
 }

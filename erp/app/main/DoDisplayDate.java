@@ -3,21 +3,19 @@ package erp.app.main;
 import erp.core.ErpManager;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME maybe import classes
 
 /**
  * Display the current date.
  */
 class DoDisplayDate extends Command<ErpManager> {
 
-  DoDisplayDate(ErpManager receiver) {
-    super(Label.DISPLAY_DATE, receiver);
-    //FIXME maybe define fields
-  }
+	DoDisplayDate(ErpManager receiver) {
+		super(Label.DISPLAY_DATE, receiver);
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    int date = super._receiver.getDate();
-    _display.addLine(Message.currentDate(date));
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		int date = super._receiver.getDate();
+		_display.popup(Message.currentDate(date));
+	}
 }

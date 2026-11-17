@@ -10,13 +10,17 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoShowCompanies extends Command<ErpManager> {
 
-  DoShowCompanies(ErpManager receiver) {
-    super(Label.SHOW_COMPANIES, receiver);
-    //FIXME maybe define fields
-  }
+	DoShowCompanies(ErpManager receiver) {
+		super(Label.SHOW_COMPANIES, receiver);
+		//FIXME maybe define fields
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		//TODO
+		for (int i = 0; i < _receiver.getCompanyNextId()-1; i++) {
+			_display.addLine(_receiver.getCompany(i));
+		}
+		_display.display();
+	}
 }
