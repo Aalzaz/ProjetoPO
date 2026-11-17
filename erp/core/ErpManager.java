@@ -5,6 +5,7 @@ import erp.core.exception.*;
 
 
 import java.io.*;
+import java.util.MissingResourceException;
 
 /**
  * The façade of the ERP core: the single entry point through which the
@@ -16,6 +17,7 @@ public class ErpManager {
 
 	/** The object doing all the actual work. */
 	private Erp _erp = new Erp();
+	private String _filePath;
 
 	//FIXME maybe define constructors
 	// --- Getters -----------------------------------------------------------
@@ -33,8 +35,17 @@ public class ErpManager {
 	 * @throws IOException if there is some error while serializing the state of the network to disk.
 	 **/
 	public void save() throws MissingFileAssociationException, IOException {
-		//FIXME implement method
+		if (_filePath == null) 
+			throw new MissingResourceException("O filepath é vazio/nulo", "FILEPATH", "");
+		writeState(_filePath);
+		_erp.systemWasSaved();
 	}
+
+	private void writeState(String filePath) throws IOException {
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
+			out.writeObject(_erp);
+    }
+}
 
 	/**
 	 * Saves the serialized application's state into the specified file. The current Erp
@@ -46,7 +57,8 @@ public class ErpManager {
 	 * @throws IOException if there is some error while serializing the state of the network to disk.
 	 **/
 	public void saveAs(String filename) throws MissingFileAssociationException, IOException {
-		//FIXME implement method
+		_filePath = filename;
+		save();
 	}
 
 	/**
@@ -58,9 +70,13 @@ public class ErpManager {
 	 * @throws UnavailableFileException if the specified file does not exist or there is
 	 *         an error while processing this file.
 	 **/
-	public void load(String filename) throws UnavailableFileException {
-		//FIXME implement method
-	}
+	public void load(String filename) throws IOException, ClassNotFoundException {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+        Erp loaded 	= (Erp) in.readObject();
+        _erp 		= loaded;     
+        _filePath 	= filename;
+    }
+}
 
 	/**
 	 * Read text input file and initializes the current application (which should be empty)
@@ -82,8 +98,8 @@ public class ErpManager {
 	}
 //---------------------------------------------------------------------------------------------------------
 
-	public void nextDay(){
-		_erp.nextDay();
+	public void advanceDate(int days){
+		_erp.advanceDate(days);
 	}
 
 	public void registerCompany(String name) throws InvalidCompanyException{

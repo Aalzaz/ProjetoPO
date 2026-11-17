@@ -15,7 +15,7 @@ import java.util.Map;
 class Erp implements Serializable {
 	@java.io.Serial
 	private static final long serialVersionUID = 202608261200L;
-	private boolean 				_modified;
+	private boolean 				_unsavedChanges;
 	private int     				_date;
 	private int     				_nextProductId;
 	private int    					_nextCompanyId;
@@ -33,40 +33,31 @@ class Erp implements Serializable {
 		_nextProductId  = 1;
 		_nextPurchaSeld	= 1;
 		_date           = 1;
-		_modified       = false;
+		_unsavedChanges = false;
 		_products       = new TreeMap<>();
 		_companies      = new TreeMap<>();
 		_purchases      = new TreeMap<>();
 		_clients		= new HashMap<>();
 	} 
-
-	public Erp(int prodId, int compId, int sellId, int date,
-				Map<Integer, Product> prods, Map<Integer, Company> comps, 
-				Map<Integer, Purchase> purchs, Map<String,Client> clients){
-		_nextCompanyId  = compId;
-		_nextProductId  = prodId;
-		_nextPurchaSeld = sellId;
-		_date           = date;
-		_modified       = true;
-		_products       = new TreeMap<>(prods);
-		_companies      = new TreeMap<>(comps);
-		_purchases      = new TreeMap<>(purchs);
-		_clients        = new HashMap<>(clients);
-		
-	}
-
 	//Getters--------------------------------------------------------------------------------------
 
-	public boolean modified(){ return _modified; }
+	public boolean hasUnsavedChanges(){ return _unsavedChanges; }
 	public int date(){ return _date;}
 	public int nextCompanyId(){ return _nextCompanyId;}
 	public int nextPurchaSeld(){ return _nextPurchaSeld;}
 	public int nextProductId(){ return _nextProductId;}
 
 	//---------------------------------------------------------------------------------------------
+	private void systemChanged(){
+		_unsavedChanges = true;
+	}
 
-	void nextDay(){
-		_date++;
+	void systemWasSaved(){
+		_unsavedChanges = false;
+	}
+
+	void advanceDate(int date){
+		_date+= date;
 	}
 
 	void updateStock(int companyId, int productId, int units, double factor) 
@@ -78,6 +69,7 @@ class Erp implements Serializable {
 		Company cmp = _companies.get(companyId);
 		Product prd = _products.get(productId);
 		cmp.changeInventory(prd, units, factor);
+		systemChanged();
 	}
 
 	void registerClient(String name, String email) throws InvalidClientException{
@@ -87,6 +79,7 @@ class Erp implements Serializable {
 			throw new InvalidClientException(email, "Email em uso por outro cliente");
 
 		_clients.put(email, client);
+		systemChanged();
 
 	}
 
@@ -94,12 +87,14 @@ class Erp implements Serializable {
 		Company comp = new Company(_nextCompanyId, name);
 		_companies.put(comp.id(), comp);
 		_nextCompanyId++;
+		systemChanged();
 	}
 	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, 
 								String originCounty, Double customTax) throws InvalidProductException {
 		Product prd = new ImportedProduct(_nextProductId, name, category, basePrice, baseDelay, originCounty, customTax);
 		_products.put(prd.id(), prd);
 		_nextProductId++;
+		systemChanged();
 
 	}
 
@@ -108,6 +103,7 @@ class Erp implements Serializable {
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
 		_products.put(prd.id(), prd);
 		_nextProductId++;
+		systemChanged();
 	}
 	
 
@@ -122,5 +118,6 @@ class Erp implements Serializable {
 	 **/
 	void importFile(String filename, Parser parser) throws UnrecognizedEntryException, IOException {
 		parser.parserFile(filename);
+		systemChanged();
 	}
 }
