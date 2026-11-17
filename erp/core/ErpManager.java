@@ -5,6 +5,7 @@ import erp.core.exception.*;
 
 
 import java.io.*;
+import java.util.Collection;
 import java.util.MissingResourceException;
 
 /**
@@ -21,9 +22,13 @@ public class ErpManager {
 
 	//FIXME maybe define constructors
 	// --- Getters -----------------------------------------------------------
-	public int getDate () {
-		return _erp.date();
-	}
+
+	public int getDate () { return _erp.date(); }
+	public Collection<Product> getProducts(){ return  _erp.getProducts(); }
+	public Product getProduct(int id) throws UnknownProductException{ return _erp.getProduct(id); }
+	public Client getClient(String email) throws UnknownClientException{ return _erp.getClient(email); }
+	public boolean hasUnsavedChanges(){ return _erp.hasUnsavedChanges(); }
+
 	// --- persistence -------------------------------------------------------
 
 	/**
@@ -105,7 +110,7 @@ public class ErpManager {
 	public void registerCompany(String name) throws InvalidCompanyException{
 		_erp.registerCompany(name);
 	}
-	public void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) throws InvalidProductException{
+	public void registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) throws InvalidProductException{
 		_erp.registerNationalProduct(name, basePrice, category,  baseDeliveryTime);
 	}
 

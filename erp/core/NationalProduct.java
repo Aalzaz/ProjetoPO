@@ -9,7 +9,7 @@ public class NationalProduct extends Product{
 	private static final int HIGH_PCT = 90, LOW_PCT = 130;
 
 	//Constructor----------------------------------------------------------------------------------
-	public NationalProduct(int id,String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
+	public NationalProduct(int id,String name, String category, int basePrice, int baseDeliveryTime) 
 							throws InvalidProductException{
 		super(id ,name, category, basePrice, baseDeliveryTime);
 	}

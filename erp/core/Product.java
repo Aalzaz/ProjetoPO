@@ -1,6 +1,7 @@
 package erp.core;
 
 import java.util.Map;
+import java.util.Locale.Category;
 
 import erp.core.exception.InvalidProductException;
 
@@ -21,12 +22,12 @@ public abstract class Product implements Serializable, Comparable<Product> {
 
 	//Constructor----------------------------------------------------------------------------------
 	
-	public Product(int id, String name, ProductCategory category, int basePrice, int baseDeliveryTime) 
+	public Product(int id, String name, String category, int basePrice, int baseDeliveryTime) 
 					throws InvalidProductException{
 		verify(name, basePrice, baseDeliveryTime);
 		_id                 = id;
 		_name               = name;
-		_category           = category;
+		_category           = ProductCategory.valueOf(category);
 		_basePrice          = basePrice;
 		_baseDeliveryTime   = baseDeliveryTime;
 		_supliesInCompany   = new HashMap<>();

@@ -6,6 +6,7 @@ import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.TreeMap;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,21 @@ class Erp implements Serializable {
 	public int nextCompanyId(){ return _nextCompanyId;}
 	public int nextPurchaSeld(){ return _nextPurchaSeld;}
 	public int nextProductId(){ return _nextProductId;}
+
+	Collection<Product> getProducts(){ return _products.values(); }
+
+	Product getProduct(int id) throws UnknownProductException{
+		if(!_products.containsKey(id))
+			throw new UnknownProductException(id);
+		return _products.get(id);
+	}
+
+
+	Client getClient(String email) throws UnknownClientException{
+		if (!_clients.containsKey(email)) 
+			throw new UnknownClientException(email);
+		return _clients.get(email);
+	}
 
 	//---------------------------------------------------------------------------------------------
 	private void systemChanged(){
@@ -98,7 +114,7 @@ class Erp implements Serializable {
 
 	}
 
-	void registerNationalProduct(String name, int basePrice, ProductCategory category,  int baseDeliveryTime) 
+	void registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) 
 								throws InvalidProductException{
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
 		_products.put(prd.id(), prd);

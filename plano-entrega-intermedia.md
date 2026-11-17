@@ -45,17 +45,17 @@ Não entregar a intermédia dá 0 nessa componente.
 - [x] `Basket` mínimo (§1.4): um por cliente e empresa, guardado no `Client` (persistente)
 
 ### 2. `Erp` e `ErpManager` (§3.1)
-- [ ] `ErpManager` mantém o `Erp` atual e é o ponto de entrada da `app`
-- [ ] Geradores de ids no `Erp`, serializados, para continuarem depois de Abrir (§1.1, §1.2, §1.9)
+- [x] `ErpManager` mantém o `Erp` atual e é o ponto de entrada da `app`
+- [x] Geradores de ids no `Erp`, serializados, para continuarem depois de Abrir (§1.1, §1.2, §1.9)
 - [ ] Opções dos formulários (tipo, categoria, critério) obtidas do domínio via `ErpManager` (§4, antes de §4.1)
 - [ ] Javadoc na classe `Erp` (critério de avaliação manual)
 
 ### 3. Leitura do `import` (§5)
-- [ ] Linhas: `RATE`, `COMPANY`, `CLIENT:nome:email`, `NATIONAL`, `IMPORTED`, `SUPPLY`; usar `String.split(":")`
+- [x] Linhas: `RATE`, `COMPANY`, `CLIENT:nome:email`, `NATIONAL`, `IMPORTED`, `SUPPLY`; usar `String.split(":")`
 - [ ] UTF-8; entradas bem formadas; há sempre pelo menos uma `RATE`
-- [ ] Preço base e tarifa inteiros; taxa e fator reais
-- [ ] Ids por ordem de leitura; `SUPPLY` refere entidades de linhas anteriores
-- [ ] O ficheiro só se usa no arranque (§4.2.1, §6)
+- [x] Preço base e tarifa inteiros; taxa e fator reais
+- [x] Ids por ordem de leitura; `SUPPLY` refere entidades de linhas anteriores
+- [x] O ficheiro só se usa no arranque (§4.2.1, §6)
 
 ### 4. Menu principal (§4.2)
 - [x] Mostrar data: `Message.currentDate()` (§4.2.2); a data começa em 1 (§1.7)

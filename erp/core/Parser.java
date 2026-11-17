@@ -73,7 +73,7 @@ class Parser {
   // NATIONAL:nome:prec¸oBase:categoria:prazo
 	private void parseNational(String[] components, String line) throws UnrecognizedEntryException, InvalidProductException {
 		checkCorrectNumberOfFields(components, 5, line);
-		_erpMan.registerNationalProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
+		_erpMan.registerNationalProduct(components[1], Integer.valueOf(components[2]), (components[3]),
 									Integer.valueOf(components[4]));
 	}
 
