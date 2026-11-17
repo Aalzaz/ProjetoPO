@@ -1,3 +1,7 @@
 {
-  "java.project.sourcePaths": ["."]
+  
+"java.project.sourcePaths": ["."],
+"editor.insertSpaces": false,
+"editor.detectIndentation": false,
+"editor.tabSize": 4
 }

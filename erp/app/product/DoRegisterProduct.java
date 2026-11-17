@@ -12,13 +12,23 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoRegisterProduct extends Command<ErpManager> {
 
-  DoRegisterProduct(ErpManager receiver) {
-    super(Label.REGISTER_PRODUCT, receiver);
-    //FIXME maybe define fields
-  }
+	DoRegisterProduct(ErpManager receiver) {
+		super(Label.REGISTER_PRODUCT, receiver);
+		addStringField("type", Prompt.productType());
+		addStringField("name", Prompt.productName());
+		addIntegerField("price", Prompt.basePrice());
+		addStringField("category", Prompt.productCategory());
+		addIntegerField("delay", Prompt.baseDelay());
+		addOptionField("origin", Prompt.originCountry(), Prompt.productType());
+		addOptionField("tax", Prompt.customsTax(), Prompt.productType());
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		if(stringField("type") == "NACIONAL"){
+			_receiver.registerNationalProduct(stringField("name"), integerField("price"), 
+			stringField("category"), integerField("delay"));
+		}
+
+	}
 }

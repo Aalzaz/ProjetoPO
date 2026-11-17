@@ -6,17 +6,17 @@ package erp.core.exception;
  **/
 public class UnavailableFileException extends Exception {
 
-  @java.io.Serial
-  private static final long serialVersionUID = 202607021200L;
-  
-  private final String _filename;
-  
-  public UnavailableFileException(String filename) {
-    super("Erro a processar ficheiro " + filename);
-    _filename = filename;
-  }
-  
-  public String getFilename() {
-    return _filename;
-  }
+	@java.io.Serial
+	private static final long serialVersionUID = 202607021200L;
+
+	private final String _filename;
+
+	public UnavailableFileException(String filename) {
+		super("Erro a processar ficheiro " + filename);
+		_filename = filename;
+	}
+
+	public String getFilename() {
+		return _filename;
+	}
 }

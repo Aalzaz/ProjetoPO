@@ -1,16 +1,18 @@
 package erp.core;
 
-public class Purchase implements Comparable<Purchase> {
-    //TODO
-    
-    private int _id;
+import java.io.Serializable;
 
-    public int id(){
-        return _id;
-    }
+public class Purchase implements Serializable, Comparable<Purchase> {
+	//TODO
+	
+	private int _id;
 
-    @Override 
-    public int compareTo(Purchase pur){
-        return _id - pur.id();
-    }
+	public int id(){
+		return _id;
+	}
+
+	@Override 
+	public int compareTo(Purchase pur){
+		return _id - pur.id();
+	}
 }
