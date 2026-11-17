@@ -65,7 +65,7 @@ class Parser {
 	 // IMPORTED:nome:prec¸oBase:categoria:prazo:paisOrigem:taxa
 	private void parseImported(String[] components, String line) throws UnrecognizedEntryException, InvalidProductException {
 		checkCorrectNumberOfFields(components, 7, line);
-		_erpMan.registerImportedProduct(components[1], Integer.valueOf(components[2]), ProductCategory.valueOf(components[3]),
+		_erpMan.registerImportedProduct(components[1], Integer.valueOf(components[2]), components[3],
 									Integer.valueOf(components[4]), components[5], Double.valueOf(components[6]));
 	}
 

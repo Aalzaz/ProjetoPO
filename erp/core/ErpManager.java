@@ -28,6 +28,10 @@ public class ErpManager {
 	public Product getProduct(int id) throws UnknownProductException{ return _erp.getProduct(id); }
 	public Client getClient(String email) throws UnknownClientException{ return _erp.getClient(email); }
 	public boolean hasUnsavedChanges(){ return _erp.hasUnsavedChanges(); }
+	public String[] productTypes(){ return  _erp.productTypes(); }
+	public String[] productCategories(){ return _erp.productCategories(); }
+	public String[] searchCriteria(){ return _erp.searchCriteria(); }
+	public Collection<Product> searchProducts(String criterion, String term){ return  _erp.searchProducts(criterion, term); }
 
 	// --- persistence -------------------------------------------------------
 
@@ -103,19 +107,16 @@ public class ErpManager {
 	}
 //---------------------------------------------------------------------------------------------------------
 
-	public void advanceDate(int days){
-		_erp.advanceDate(days);
+	public void advanceDate(int days){ _erp.advanceDate(days); }
+	public void registerCompany(String name) throws InvalidCompanyException{ _erp.registerCompany(name); }
+	public boolean productNeedsOrigin(String type) throws IllegalArgumentException{ return  _erp.productNeedsOrigin(type); }
+
+	public int registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) throws InvalidProductException{
+		return _erp.registerNationalProduct(name, basePrice, category,  baseDeliveryTime);
 	}
 
-	public void registerCompany(String name) throws InvalidCompanyException{
-		_erp.registerCompany(name);
-	}
-	public void registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) throws InvalidProductException{
-		_erp.registerNationalProduct(name, basePrice, category,  baseDeliveryTime);
-	}
-
-	public void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProductException{
-		_erp.registerImportedProduct(name, basePrice, category, baseDelay, originCounty, customTax);
+	public int registerImportedProduct(String name, Integer basePrice, String category, Integer baseDelay, String originCounty, Double customTax) throws InvalidProductException{
+		return _erp.registerImportedProduct(name, basePrice, category, baseDelay, originCounty, customTax);
 	}
 	public void registerClient(String name, String email) throws InvalidClientException{
 		_erp.registerClient(name, email);

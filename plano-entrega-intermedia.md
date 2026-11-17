@@ -47,7 +47,7 @@ Não entregar a intermédia dá 0 nessa componente.
 ### 2. `Erp` e `ErpManager` (§3.1)
 - [x] `ErpManager` mantém o `Erp` atual e é o ponto de entrada da `app`
 - [x] Geradores de ids no `Erp`, serializados, para continuarem depois de Abrir (§1.1, §1.2, §1.9)
-- [ ] Opções dos formulários (tipo, categoria, critério) obtidas do domínio via `ErpManager` (§4, antes de §4.1)
+- [x] Opções dos formulários (tipo, categoria, critério) obtidas do domínio via `ErpManager` (§4, antes de §4.1)
 - [ ] Javadoc na classe `Erp` (critério de avaliação manual)
 
 ### 3. Leitura do `import` (§5)
@@ -74,9 +74,9 @@ Não entregar a intermédia dá 0 nessa componente.
 - [ ] Produto não disponibilizado pela empresa: `ProductNotSuppliedException` (§4, depois da tabela)
 
 ### 6. Menu Produtos (§4.4)
-- [ ] Registar: pede tipo, nome, preço base, categoria e prazo, por esta ordem; se `IMPORTADO`, pede também país e taxa; falha com `ProductRegistrationFailedException` (§4.4.1)
-- [ ] Mostrar e Mostrar todos: formato de §4.1, ordenados por id; o preço base vem antes do recomendado (§4.4.2, §4.4.3)
-- [ ] Pesquisa (§4.4.4)
+- [x] Registar: pede tipo, nome, preço base, categoria e prazo, por esta ordem; se `IMPORTADO`, pede também país e taxa; falha com `ProductRegistrationFailedException` (§4.4.1)
+- [x] Mostrar e Mostrar todos: formato de §4.1, ordenados por id; o preço base vem antes do recomendado (§4.4.2, §4.4.3)
+- [x] Pesquisa (§4.4.4)
   - critérios `NOME`, `CATEGORIA`, `ORIGEM`
   - comparação sem distinguir maiúsculas
   - resultado por id; se não houver resultados, não imprime nada

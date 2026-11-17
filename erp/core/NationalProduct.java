@@ -14,9 +14,6 @@ public class NationalProduct extends Product{
 		super(id ,name, category, basePrice, baseDeliveryTime);
 	}
 	//----------------------------------------------------------------------------------------------
-	@Override
-	public String type(){ return "NACIONAL"; }
-	
 	@Override 
 	double recommendPrice() {
 	int units = totalUnits();
@@ -29,6 +26,10 @@ public class NationalProduct extends Product{
 	@Override
 	public String extraString(){
 		return "";
+	}
+	@Override
+	String extraTypeInfo() {
+		return "NACIONAL";
 	}
 }
 	

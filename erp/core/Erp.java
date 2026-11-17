@@ -6,8 +6,12 @@ import erp.core.exception.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,20 +20,25 @@ import java.util.Map;
 class Erp implements Serializable {
 	@java.io.Serial
 	private static final long serialVersionUID = 202608261200L;
-	private boolean 				_unsavedChanges;
-	private int     				_date;
-	private int     				_nextProductId;
-	private int    					_nextCompanyId;
-	private int     				_nextPurchaSeld;
-	private Map<Integer, Product> 	_products;
-	private Map<Integer, Company> 	_companies;
-	private Map<Integer, Purchase>  _purchases;
-	private Map<String, Client> 	_clients;
-
+	private boolean 					_unsavedChanges;
+	private int     					_date;
+	private int     					_nextProductId;
+	private int    						_nextCompanyId;
+	private int     					_nextPurchaSeld;
+	private Map<Integer, Product> 		_products;
+	private Map<Integer, Company> 		_companies;
+	private Map<Integer, Purchase>  	_purchases;
+	private Map<String, Client> 		_clients;
+	private final List<SearchCriteria> 	_searchCriteriaList = Arrays.asList(
+        new NameCriteria(),
+        new CategoryCriteria(),
+        new OriginCriteria()
+    );
+	
 
 	//Constructor----------------------------------------------------------------------------------
 
-	public Erp(){
+	Erp(){
 		_nextCompanyId  = 1;
 		_nextProductId  = 1;
 		_nextPurchaSeld	= 1;
@@ -42,11 +51,11 @@ class Erp implements Serializable {
 	} 
 	//Getters--------------------------------------------------------------------------------------
 
-	public boolean hasUnsavedChanges(){ return _unsavedChanges; }
-	public int date(){ return _date;}
-	public int nextCompanyId(){ return _nextCompanyId;}
-	public int nextPurchaSeld(){ return _nextPurchaSeld;}
-	public int nextProductId(){ return _nextProductId;}
+	boolean hasUnsavedChanges(){ return _unsavedChanges; }
+	int date(){ return _date;}
+	int nextCompanyId(){ return _nextCompanyId;}
+	int nextPurchaSeld(){ return _nextPurchaSeld;}
+	int nextProductId(){ return _nextProductId;}
 
 	Collection<Product> getProducts(){ return _products.values(); }
 
@@ -56,6 +65,28 @@ class Erp implements Serializable {
 		return _products.get(id);
 	}
 
+	boolean productNeedsOrigin(String type) throws IllegalArgumentException{ 
+		return ProductType.valueOf(type).productNeedsOrigin();
+	}
+
+	Collection<Product> searchProducts(String criterion, String term)
+								throws IllegalArgumentException {
+		Collection<Product> collection = new ArrayList<>();
+		SearchCriteria criteria = null;
+		for (SearchCriteria sc : _searchCriteriaList) {
+			if(sc.name().equalsIgnoreCase(criterion)){
+				criteria = sc;
+				break;
+			}
+		}
+		if(criteria == null)
+			return Collections.emptyList();
+		for (Product product : _products.values()) {
+			if(criteria.matches(product, term))
+				collection.add(product);
+		}
+		return collection;
+	}
 
 	Client getClient(String email) throws UnknownClientException{
 		if (!_clients.containsKey(email)) 
@@ -63,7 +94,38 @@ class Erp implements Serializable {
 		return _clients.get(email);
 	}
 
+	String[] searchCriteria() {
+		String[] criteria = new String[_searchCriteriaList.size()];
+		int j = 0;
+		for (SearchCriteria sc : _searchCriteriaList) {
+			criteria[j] = sc.name();
+			j++;
+		}
+		return criteria;
+	}
+
+	String[] productTypes() {
+		String[] vector = new String[ProductType.values().length];
+		int j = 0;
+		for (ProductType prdType : ProductType.values()) {
+			vector[j] = prdType.toString();
+			j++;
+		}
+		return vector;
+	}
+	
+	String[] productCategories() {
+		String[] vector = new String[ProductCategory.values().length];
+		int j = 0;
+		for (ProductCategory prdCategory : ProductCategory.values()) {
+			vector[j] = prdCategory.toString();
+			j++;
+		}
+		return vector;
+	}
+
 	//---------------------------------------------------------------------------------------------
+
 	private void systemChanged(){
 		_unsavedChanges = true;
 	}
@@ -105,21 +167,22 @@ class Erp implements Serializable {
 		_nextCompanyId++;
 		systemChanged();
 	}
-	void registerImportedProduct(String name, Integer basePrice, ProductCategory category, Integer baseDelay, 
+	int registerImportedProduct(String name, Integer basePrice, String category, Integer baseDelay, 
 								String originCounty, Double customTax) throws InvalidProductException {
 		Product prd = new ImportedProduct(_nextProductId, name, category, basePrice, baseDelay, originCounty, customTax);
 		_products.put(prd.id(), prd);
 		_nextProductId++;
 		systemChanged();
-
+		return prd.id();
 	}
 
-	void registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) 
+	int registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) 
 								throws InvalidProductException{
 		Product prd = new NationalProduct(_nextProductId, name, category, basePrice, baseDeliveryTime);
 		_products.put(prd.id(), prd);
 		_nextProductId++;
 		systemChanged();
+		return prd.id();
 	}
 	
 
