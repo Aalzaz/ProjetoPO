@@ -24,14 +24,30 @@ public class ErpManager {
 	// --- Getters -----------------------------------------------------------
 
 	public int getDate () { return _erp.date(); }
-	public Collection<Product> getProducts(){ return  _erp.getProducts(); }
+
+	public Collection<Product> getProducts(){ return _erp.getProducts(); }
+
 	public Product getProduct(int id) throws UnknownProductException{ return _erp.getProduct(id); }
+
 	public Client getClient(String email) throws UnknownClientException{ return _erp.getClient(email); }
+
 	public boolean hasUnsavedChanges(){ return _erp.hasUnsavedChanges(); }
-	public String[] productTypes(){ return  _erp.productTypes(); }
+
+	public String[] productTypes(){ return _erp.productTypes(); }
+
 	public String[] productCategories(){ return _erp.productCategories(); }
+
 	public String[] searchCriteria(){ return _erp.searchCriteria(); }
-	public Collection<Product> searchProducts(String criterion, String term){ return  _erp.searchProducts(criterion, term); }
+
+	public Collection<Product> searchProducts(String criterion, String term){ return _erp.searchProducts(criterion, term); }
+
+	public Company getCompany(int id) throws UnknownCompanyException{ return _erp.getCompany(id); }
+
+	public Collection<Company> getCompanies() {return _erp.getCompanies();}
+
+	public Collection<SuppliedProduct> availableProducts(int id) throws UnknownCompanyException{ return _erp.availableProducts(id); }
+
+	public Collection<Client> getClients(){ return _erp.getClients(); }
 
 	// --- persistence -------------------------------------------------------
 
@@ -108,7 +124,9 @@ public class ErpManager {
 //---------------------------------------------------------------------------------------------------------
 
 	public void advanceDate(int days){ _erp.advanceDate(days); }
-	public void registerCompany(String name) throws InvalidCompanyException{ _erp.registerCompany(name); }
+
+	public int registerCompany(String name) throws InvalidCompanyException{ return _erp.registerCompany(name); }
+
 	public boolean productNeedsOrigin(String type) throws IllegalArgumentException{ return  _erp.productNeedsOrigin(type); }
 
 	public int registerNationalProduct(String name, int basePrice, String category,  int baseDeliveryTime) throws InvalidProductException{

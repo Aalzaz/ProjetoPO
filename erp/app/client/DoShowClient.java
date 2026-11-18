@@ -12,17 +12,17 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoShowClient extends Command<ErpManager> {
 
-  DoShowClient(ErpManager receiver) {
-    super(Label.SHOW_CLIENT, receiver);
-    addStringField("email", Prompt.clientId());
-  }
-
-  @Override
-  protected final void execute() throws CommandException, UnknownClientKeyException {
-    try {
-		_display.popup(_receiver.getClient(stringField("email")));
-	}catch(UnknownClientException e){
-		throw new UnknownClientKeyException(stringField("email"));
+	DoShowClient(ErpManager receiver) {
+		super(Label.SHOW_CLIENT, receiver);
+		addStringField("email", Prompt.clientId());
 	}
-  }
+
+	@Override
+	protected final void execute() throws CommandException, UnknownClientKeyException {
+		try {
+			_display.popup(_receiver.getClient(stringField("email")));
+		}catch(UnknownClientException e){
+			throw new UnknownClientKeyException(stringField("email"));
+		}
+	}
 }

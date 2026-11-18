@@ -1,9 +1,12 @@
 package erp.app.company;
 
 import erp.core.ErpManager;
+import erp.core.exception.InvalidStockOperationException;
+import erp.core.exception.UnknownCompanyException;
+import erp.core.exception.UnknownProductException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME maybe import classes
+
 
 /**
  * Changes what a company holds of a product — the amount is added to its
@@ -15,13 +18,24 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoChangeProductInventory extends Command<ErpManager> {
 
-  DoChangeProductInventory(ErpManager receiver) {
-    super(Label.CHANGE_PRODUCT_INVENTORY, receiver);
-    //FIXME maybe define fields
-  }
+	DoChangeProductInventory(ErpManager receiver) {
+		super(Label.CHANGE_PRODUCT_INVENTORY, receiver);
+		addIntegerField("companyId", Prompt.companyId());
+		addIntegerField("productId", erp.app.product.Prompt.productId());
+		addIntegerField("delta", Prompt.amountToUpdate());
+		addRealField("factor", Prompt.priceFactor());
+	}
 
-  @Override
-  protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+	@Override
+	protected final void execute() throws CommandException {
+		try{
+			_receiver.updateStock(integerField("companyId"), integerField("productId"), 
+											integerField("delta"), realField("factor"));
+			_display.popup(Message.supplySuccessful(integerField("companyId"), integerField("productId")));
+
+		}catch(UnknownCompanyException | UnknownProductException | InvalidStockOperationException e){
+			_display.popup(Message.cannotChangeInventory(integerField("productId")));
+		}
+	}
+
 }

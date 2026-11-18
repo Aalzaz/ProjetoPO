@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,12 +53,33 @@ class Erp implements Serializable {
 	//Getters--------------------------------------------------------------------------------------
 
 	boolean hasUnsavedChanges(){ return _unsavedChanges; }
+
 	int date(){ return _date;}
+
 	int nextCompanyId(){ return _nextCompanyId;}
+
 	int nextPurchaSeld(){ return _nextPurchaSeld;}
+
 	int nextProductId(){ return _nextProductId;}
 
 	Collection<Product> getProducts(){ return _products.values(); }
+
+	Collection<Company> getCompanies(){ return  _companies.values(); }
+
+public Collection<Client> getClients() {
+	List<Client> clientsList = new ArrayList<>(_clients.values());
+	clientsList.sort(new Comparator<Client>() {
+		@Override
+		public int compare(Client c1, Client c2) {
+			int nameComparison = c1.name().compareToIgnoreCase(c2.name());
+			if (nameComparison != 0) {
+				return nameComparison;
+			}
+			return c1.email().compareToIgnoreCase(c2.email());
+		}
+	});
+	return clientsList;
+}
 
 	Product getProduct(int id) throws UnknownProductException{
 		if(!_products.containsKey(id))
@@ -68,6 +90,8 @@ class Erp implements Serializable {
 	boolean productNeedsOrigin(String type) throws IllegalArgumentException{ 
 		return ProductType.valueOf(type).productNeedsOrigin();
 	}
+
+
 
 	Collection<Product> searchProducts(String criterion, String term)
 								throws IllegalArgumentException {
@@ -86,6 +110,13 @@ class Erp implements Serializable {
 				collection.add(product);
 		}
 		return collection;
+	}
+
+	Company getCompany(int id) throws UnknownCompanyException{
+		if (_companies.containsKey(id)) {
+			return _companies.get(id);
+		}
+		throw new UnknownCompanyException(id);
 	}
 
 	Client getClient(String email) throws UnknownClientException{
@@ -137,6 +168,11 @@ class Erp implements Serializable {
 	void advanceDate(int date){
 		_date+= date;
 	}
+	Collection<SuppliedProduct> availableProducts(int id) throws UnknownCompanyException{
+		if(!_companies.containsKey(id))
+			throw new UnknownCompanyException(id);
+		return  _companies.get(id).availableProducts();
+	}
 
 	void updateStock(int companyId, int productId, int units, double factor) 
 						throws UnknownCompanyException, UnknownProductException, InvalidStockOperationException{
@@ -161,12 +197,14 @@ class Erp implements Serializable {
 
 	}
 
-	void registerCompany(String name) throws InvalidCompanyException{
+	int registerCompany(String name) throws InvalidCompanyException{
 		Company comp = new Company(_nextCompanyId, name);
 		_companies.put(comp.id(), comp);
 		_nextCompanyId++;
 		systemChanged();
+		return comp.id();
 	}
+
 	int registerImportedProduct(String name, Integer basePrice, String category, Integer baseDelay, 
 								String originCounty, Double customTax) throws InvalidProductException {
 		Product prd = new ImportedProduct(_nextProductId, name, category, basePrice, baseDelay, originCounty, customTax);

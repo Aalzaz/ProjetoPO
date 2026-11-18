@@ -15,17 +15,16 @@ class DoRegisterCompany extends Command<ErpManager> {
 		super(Label.REGISTER_COMPANY, receiver);
 		addStringField("companyName", Prompt.companyName());
 	}
-
+	
 	@Override
 	protected final void execute() throws CommandException {
+		int id;
 		try {
-			int id = super._receiver.registerCompany(stringField("companyName"));
+			id = _receiver.registerCompany(stringField("companyName"));
 		}
 		catch (InvalidCompanyException e) {
 			throw new CompanyRegistrationFailedException(stringField("companyName"));
 		}
-		finally {
-			_display.popup(Message.registrationSuccessful(id));
-		}
+		_display.popup(Message.registrationSuccessful(id));
 	}
 }

@@ -25,7 +25,7 @@ public class Client implements Serializable{
 	}
 //Getters--------------------------------------------------------------------------------------
 
-	public Basket basketFor(Company cmp) { return _baskets.get(cmp.id()); }
+	public Basket basketInCompany(Company cmp) { return _baskets.get(cmp.id()); }
 	public String name(){ return _name; }
 	public String email(){ return _email;}
 	public double totalSpent(){ return _totalSpent; }

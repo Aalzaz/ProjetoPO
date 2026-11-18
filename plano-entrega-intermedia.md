@@ -65,13 +65,13 @@ Não entregar a intermédia dá 0 nessa componente.
 - [ ] Sair nunca guarda (§4.2.1)
 
 ### 5. Menu Empresas (§4.3)
-- [ ] Registar: `Prompt.companyName()`, `Message.registrationSuccessful()`, `CompanyRegistrationFailedException` (§4.3.1)
-- [ ] Mostrar e Mostrar todas: formato `id - nome`, ordenadas por id (§4.3.2, §4.3.3)
-- [ ] Alterar inventário (§4.3.4): pede empresa, produto, `Prompt.amountToUpdate()` e `Prompt.priceFactor()`
+- [x] Registar: `Prompt.companyName()`, `Message.registrationSuccessful()`, `CompanyRegistrationFailedException` (§4.3.1)
+- [x] Mostrar e Mostrar todas: formato `id - nome`, ordenadas por id (§4.3.2, §4.3.3)
+- [x] Alterar inventário (§4.3.4): pede empresa, produto, `Prompt.amountToUpdate()` e `Prompt.priceFactor()`
   - sucesso: `Message.supplySuccessful()`
   - inválido: `Message.cannotChangeInventory()`, sem efeito
-- [ ] Mostrar produtos da empresa: ordenados por id de produto, formato `idEmpresa - idProduto - unidades - factor - preço de venda`; só os disponíveis (§4.3.5, §4.1, §1.2.1)
-- [ ] Produto não disponibilizado pela empresa: `ProductNotSuppliedException` (§4, depois da tabela)
+- [x] Mostrar produtos da empresa: ordenados por id de produto, formato `idEmpresa - idProduto - unidades - factor - preço de venda`; só os disponíveis (§4.3.5, §4.1, §1.2.1)
+- [x] Produto não disponibilizado pela empresa: `ProductNotSuppliedException` (§4, depois da tabela)
 
 ### 6. Menu Produtos (§4.4)
 - [x] Registar: pede tipo, nome, preço base, categoria e prazo, por esta ordem; se `IMPORTADO`, pede também país e taxa; falha com `ProductRegistrationFailedException` (§4.4.1)
@@ -83,9 +83,9 @@ Não entregar a intermédia dá 0 nessa componente.
   - `ORIGEM` só encontra produtos importados
 
 ### 7. Menu Clientes (§4.5)
-- [ ] Registar: pede o nome e depois o email; email repetido falha com `ClientRegistrationFailedException` (§4.5.1)
-- [ ] Mostrar: `email - nome - gasto total` (§4.5.2)
-- [ ] Mostrar todos: por nome e depois por email, sem distinguir maiúsculas (§4.5.3)
+- [x] Registar: pede o nome e depois o email; email repetido falha com `ClientRegistrationFailedException` (§4.5.1)
+- [x] Mostrar: `email - nome - gasto total` (§4.5.2)
+- [x] Mostrar todos: por nome e depois por email, sem distinguir maiúsculas (§4.5.3)
 
 ### 8. Efectuar compra (§4.6.1)
 - [ ] Pede cliente e empresa, valida, e abre o menu do cabaz desse cliente nessa empresa (criado vazio se não existir)

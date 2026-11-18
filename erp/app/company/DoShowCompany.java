@@ -18,9 +18,8 @@ class DoShowCompany extends Command<ErpManager> {
 
 	@Override
 	protected final void execute() throws CommandException {
-		//FIXME maybe change company getter name
 		try {
-			_display.popup(super._receiver.getCompany(integerField("id")));
+			_display.popup(_receiver.getCompany(integerField("id")));
 		}
 		catch (UnknownCompanyException e) {
 			throw new UnknownCompanyKeyException(integerField("id"));
