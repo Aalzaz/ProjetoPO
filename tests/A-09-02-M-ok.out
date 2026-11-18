@@ -1,0 +1,41 @@
+Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: Menu de Gestão de Produtos
+1 - Registar produto
+2 - Mostrar produto
+3 - Mostrar todos os produtos
+4 - Efectuar pesquisa de produtos
+0 - Sair
+Escolha uma opção: Introduza o tipo de produto: Introduza o nome do produto: Introduza o preço base: Introduza a categoria: Introduza o prazo de entrega base: Introduza o país de origem: Introduza a taxa alfandegária: Novo produto criado com o número 1.
+Menu de Gestão de Produtos
+1 - Registar produto
+2 - Mostrar produto
+3 - Mostrar todos os produtos
+4 - Efectuar pesquisa de produtos
+0 - Sair
+Escolha uma opção: Introduza o número do produto: 1 - IMPORTADO - CPU - ELECTRONICA - 120.00 - 145.20 - 12 - 0 - China - 21.0
+Menu de Gestão de Produtos
+1 - Registar produto
+2 - Mostrar produto
+3 - Mostrar todos os produtos
+4 - Efectuar pesquisa de produtos
+0 - Sair
+Escolha uma opção: Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: 

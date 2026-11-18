@@ -1,5 +1,8 @@
 package erp.app.company;
 
+import erp.app.exception.NotEnoughInventoryException;
+import erp.app.exception.UnknownCompanyKeyException;
+import erp.app.exception.UnknownProductKeyException;
 import erp.core.ErpManager;
 import erp.core.exception.InvalidStockOperationException;
 import erp.core.exception.UnknownCompanyException;
@@ -27,15 +30,21 @@ class DoChangeProductInventory extends Command<ErpManager> {
 	}
 
 	@Override
-	protected final void execute() throws CommandException {
-		try{
-			_receiver.updateStock(integerField("companyId"), integerField("productId"), 
-											integerField("delta"), realField("factor"));
-			_display.popup(Message.supplySuccessful(integerField("companyId"), integerField("productId")));
+    protected final void execute() throws CommandException {
+        try{
+            _receiver.updateStock(integerField("companyId"), integerField("productId"), 
+                                            integerField("delta"), realField("factor"));
+            _display.popup(Message.supplySuccessful(integerField("companyId"), integerField("productId")));
 
-		}catch(UnknownCompanyException | UnknownProductException | InvalidStockOperationException e){
-			_display.popup(Message.cannotChangeInventory(integerField("productId")));
-		}
-	}
+        }catch(UnknownCompanyException e){
+            throw new UnknownCompanyKeyException(integerField("companyId"));
+        }
+        catch (UnknownProductException e) {
+            throw new UnknownProductKeyException(integerField("productId"));
+        }
+        catch (InvalidStockOperationException e) {
+            _display.popup(Message.cannotChangeInventory((integerField("productId"))));
+        }
+    }
 
 }

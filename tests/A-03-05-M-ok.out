@@ -1,0 +1,44 @@
+Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: Menu de Gestão de Clientes
+1 - Registar cliente
+2 - Mostrar cliente
+3 - Mostrar todos os clientes
+4 - Mostrar notificações de cliente
+0 - Sair
+Escolha uma opção: Introduza o nome do cliente: Introduza o endereço de correio do cliente: Registar cliente: Operação inválida: Registo de cliente falhado: nome '', email 'w@jedi.org'.
+Menu de Gestão de Clientes
+1 - Registar cliente
+2 - Mostrar cliente
+3 - Mostrar todos os clientes
+4 - Mostrar notificações de cliente
+0 - Sair
+Escolha uma opção: ahsoka@jedi.org - Ahsoka Tano - 0.00
+han@millenium.falcon.org - Han Solo - 0.00
+luke@jedi.org - Luke Skywalker - 0.00
+obiwan@jedi.org - Obi-Wan Kenobi - 0.00
+Menu de Gestão de Clientes
+1 - Registar cliente
+2 - Mostrar cliente
+3 - Mostrar todos os clientes
+4 - Mostrar notificações de cliente
+0 - Sair
+Escolha uma opção: Menu Principal
+1 - Abrir ficheiro
+2 - Guardar ficheiro
+3 - Ver data
+4 - Avançar data
+5 - Menu de gestão de empresas
+6 - Menu de gestão de produtos
+7 - Menu de gestão de clientes
+8 - Menu de gestão de compras
+0 - Sair
+Escolha uma opção: 

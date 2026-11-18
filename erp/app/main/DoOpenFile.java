@@ -4,6 +4,7 @@ import java.io.IOException;
 import erp.app.exception.FileOpenFailedException;
 import erp.core.ErpManager;
 import erp.core.exception.MissingFileAssociationException;
+import erp.core.exception.UnavailableFileException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
@@ -38,7 +39,7 @@ class DoOpenFile extends Command<ErpManager> {
 		}
 		_receiver.load(Form.requestString(Prompt.openFile()));
 	} 
-	catch (IOException | ClassNotFoundException e) {
+	catch (UnavailableFileException e) {
 		throw new FileOpenFailedException(e);
 	}
 }

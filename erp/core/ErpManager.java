@@ -96,12 +96,14 @@ public class ErpManager {
 	 * @throws UnavailableFileException if the specified file does not exist or there is
 	 *         an error while processing this file.
 	 **/
-	public void load(String filename) throws IOException, ClassNotFoundException {
+	public void load(String filename) throws UnavailableFileException {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
         Erp loaded 	= (Erp) in.readObject();
         _erp 		= loaded;     
         _filePath 	= filename;
-    }
+    } catch (IOException | ClassNotFoundException e){
+		throw new UnavailableFileException(filename);
+	}
 }
 
 	/**
