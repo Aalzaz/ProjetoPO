@@ -26,7 +26,7 @@ class DoOpenFile extends Command<ErpManager> {
 			}
 			catch (MissingFileAssociationException ex) {
 				try {
-					super._receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
+					_receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
 				}
 				catch (MissingFileAssociationException | IOException exc) {
 					throw new FileOpenFailedException(exc);

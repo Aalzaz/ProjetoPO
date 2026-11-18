@@ -20,9 +20,9 @@ class DoSaveFile extends Command<ErpManager> {
 
     @Override
     protected final void execute() throws CommandException{
-		if (super._receiver.hasUnsavedChanges() == true) {
+		if (_receiver.hasUnsavedChanges() == true) {
 			try {
-				super._receiver.save();
+				_receiver.save();
 			}
 			catch (MissingFileAssociationException e) {
 				try {

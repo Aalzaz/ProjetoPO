@@ -20,7 +20,6 @@ public class ErpManager {
 	private Erp _erp = new Erp();
 	private String _filePath;
 
-	//FIXME maybe define constructors
 	// --- Getters -----------------------------------------------------------
 
 	public int getDate () { return _erp.date(); }
@@ -63,7 +62,7 @@ public class ErpManager {
 	 **/
 	public void save() throws MissingFileAssociationException, IOException {
 		if (_filePath == null) 
-			throw new MissingResourceException("O filepath é vazio/nulo", "FILEPATH", "");
+			throw new MissingFileAssociationException();
 		writeState(_filePath);
 		_erp.systemWasSaved();
 	}
