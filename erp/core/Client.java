@@ -25,7 +25,13 @@ public class Client implements Serializable{
 	}
 //Getters--------------------------------------------------------------------------------------
 
-	public Basket basketInCompany(Company cmp) { return _baskets.get(cmp.id()); }
+	public Basket basketInCompany(Company cmp) {
+		if (!_baskets.containsKey(cmp.id())){
+			Basket newbBasket = new Basket(this, cmp);
+			_baskets.put(cmp.id(), newbBasket);
+		}
+		return _baskets.get(cmp.id());
+	}
 	public String name(){ return _name; }
 	public String email(){ return _email;}
 	public double totalSpent(){ return _totalSpent; }
@@ -41,17 +47,10 @@ public class Client implements Serializable{
 			throw new InvalidClientException("NOME", "Não dever ser vazio/nulo");
 	}
 
-
 	void debit(double val){
 		_totalSpent += val;
 	}
-	boolean addBasket(Basket basket) {
-		if(_baskets.containsKey(basket.company().id()))
-			return false;
-	_baskets.put(basket.company().id(), basket);
-	return true;
-	}
-	
+
 
 	@Override 
 	public String toString(){

@@ -49,6 +49,8 @@ public class ErpManager {
 
 	public Collection<Client> getClients(){ return _erp.getClients(); }
 
+	public Basket getBasket(String email, int companyId) throws UnknownClientException, UnknownCompanyException { return _erp.getBasket(email, companyId); }
+
 	// --- persistence -------------------------------------------------------
 
 	/**

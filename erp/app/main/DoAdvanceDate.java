@@ -16,8 +16,8 @@ class DoAdvanceDate extends Command<ErpManager> {
 	@Override
 	protected final void execute() throws CommandException {
 		int days = integerField("days");
-		if (days >= 0) {
-			super._receiver.advanceDate(days);
+		if (days > 0) {
+			_receiver.advanceDate(days);
 		}
 	}
 }

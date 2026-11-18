@@ -15,7 +15,7 @@ class DoDisplayDate extends Command<ErpManager> {
 
 	@Override
 	protected final void execute() throws CommandException {
-		int date = super._receiver.getDate();
+		int date = _receiver.getDate();
 		_display.popup(Message.currentDate(date));
 	}
 }

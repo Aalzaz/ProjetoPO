@@ -66,20 +66,29 @@ class Erp implements Serializable {
 
 	Collection<Company> getCompanies(){ return  _companies.values(); }
 
-public Collection<Client> getClients() {
-	List<Client> clientsList = new ArrayList<>(_clients.values());
-	clientsList.sort(new Comparator<Client>() {
-		@Override
-		public int compare(Client c1, Client c2) {
-			int nameComparison = c1.name().compareToIgnoreCase(c2.name());
-			if (nameComparison != 0) {
-				return nameComparison;
+	Basket getBasket(String email, int companyId) throws UnknownClientException, UnknownCompanyException{
+		if(!_clients.containsKey(email))
+			throw new UnknownClientException(email);
+		if(!_companies.containsKey(companyId))
+			throw new UnknownCompanyException(companyId);
+		
+		return _clients.get(email).basketInCompany(_companies.get(companyId));
+	}
+
+	public Collection<Client> getClients() {
+		List<Client> clientsList = new ArrayList<>(_clients.values());
+		clientsList.sort(new Comparator<Client>() {
+			@Override
+			public int compare(Client c1, Client c2) {
+				int nameComparison = c1.name().compareToIgnoreCase(c2.name());
+				if (nameComparison != 0) {
+					return nameComparison;
+				}
+				return c1.email().compareToIgnoreCase(c2.email());
 			}
-			return c1.email().compareToIgnoreCase(c2.email());
-		}
-	});
-	return clientsList;
-}
+		});
+		return clientsList;
+	}
 
 	Product getProduct(int id) throws UnknownProductException{
 		if(!_products.containsKey(id))

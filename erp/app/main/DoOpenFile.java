@@ -1,10 +1,11 @@
 package erp.app.main;
 
 import java.io.IOException;
+import pt.tecnico.uilib.forms.Form;
 
 import erp.app.exception.FileOpenFailedException;
 import erp.core.ErpManager;
-import erp.core.exception.UnavailableFileException;
+import erp.core.exception.MissingFileAssociationException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -21,18 +22,13 @@ class DoOpenFile extends Command<ErpManager> {
 
 	@Override
 	protected final void execute() throws CommandException {
-		String filename = stringField("filename");
-		try {
-			super._receiver.load(filename); 
+	try {
+		if (_receiver.hasUnsavedChanges() && Form.confirm(Prompt.saveBeforeExit())) {
+			// reutilizar a mesma lógica do DoSaveFile (pedir nome se não houver associação)
 		}
-    	//catch (UnavailableFileException e) {
-    	//	throw new FileOpenFailedException(e);
-    	//}
-		catch (IOException e) {
-			//TODO
-		}
-		catch (ClassNotFoundException e) {
-			// TODO
-		}
+		_receiver.load(stringField("filename"));
+	} catch (IOException | ClassNotFoundException e) {
+		throw new FileOpenFailedException(e);
 	}
+}
 }

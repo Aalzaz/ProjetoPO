@@ -59,8 +59,8 @@ Não entregar a intermédia dá 0 nessa componente.
 
 ### 4. Menu principal (§4.2)
 - [x] Mostrar data: `Message.currentDate()` (§4.2.2); a data começa em 1 (§1.7)
-- [ ] Avançar data: `Prompt.daysToAdvance()`; só valores positivos, senão não tem efeito; avança dia a dia (§4.2.3, §1.7)
-- [ ] Abrir (§4.2.1): `Prompt.openFile()`, `FileOpenFailedException` se falhar; substitui todo o estado; se houver alterações por guardar, pergunta `Prompt.saveBeforeExit()`
+- [x] Avançar data: `Prompt.daysToAdvance()`; só valores positivos, senão não tem efeito; avança dia a dia (§4.2.3, §1.7)
+- [x] Abrir (§4.2.1): `Prompt.openFile()`, `FileOpenFailedException` se falhar; substitui todo o estado; se houver alterações por guardar, pergunta `Prompt.saveBeforeExit()`
 - [ ] Guardar (§4.2.1): usa o ficheiro associado, senão `Prompt.newSaveAs()`; não faz nada se não houver alterações
 - [ ] Sair nunca guarda (§4.2.1)
 
@@ -88,7 +88,7 @@ Não entregar a intermédia dá 0 nessa componente.
 - [x] Mostrar todos: por nome e depois por email, sem distinguir maiúsculas (§4.5.3)
 
 ### 8. Efectuar compra (§4.6.1)
-- [ ] Pede cliente e empresa, valida, e abre o menu do cabaz desse cliente nessa empresa (criado vazio se não existir)
+- [x] Pede cliente e empresa, valida, e abre o menu do cabaz desse cliente nessa empresa (criado vazio se não existir)
 
 ### 9. Fecho
 - [ ] Todos os comandos restantes existem
