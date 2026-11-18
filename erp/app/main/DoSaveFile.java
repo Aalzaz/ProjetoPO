@@ -1,13 +1,12 @@
 package erp.app.main;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import erp.app.exception.FileOpenFailedException;
 import erp.core.ErpManager;
 import erp.core.exception.MissingFileAssociationException;
 import pt.tecnico.uilib.menus.Command;
-//FIXME maybe import classes
-
+import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.forms.Form;
 /**
  * Saves the current state of the application to a file using the serialization
  * mechanism. If no file is currently associated with the application, asks the user for
@@ -20,32 +19,22 @@ class DoSaveFile extends Command<ErpManager> {
     }
 
     @Override
-    protected final void execute() {
-		try {
-			super._receiver.save();
-		}
-		catch (FileNotFoundException e) {
-        	// TODO handle file not found
-		}
-		catch (MissingFileAssociationException e) {
-			if (super._receiver.hasUnsavedChanges() == true) {
-				addStringField("fileName", Prompt.newSaveAs());
+    protected final void execute() throws CommandException{
+		if (super._receiver.hasUnsavedChanges() == true) {
+			try {
+				super._receiver.save();
+			}
+			catch (MissingFileAssociationException e) {
 				try {
-					super._receiver.saveAs(stringField("fileName"));
+					_receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
 				}
-				catch (FileNotFoundException ex) {
-					// TODO handle file not found
-				}
-				catch (MissingFileAssociationException ex) {
-					//TODO
-				}
-				catch (IOException ex) {
-					//TODO
+				catch (MissingFileAssociationException | IOException ex) {
+					throw new FileOpenFailedException(ex);
 				}
 			}
-		}
-		catch (IOException e) {
-        	// TODO handle stream exception
+			catch (IOException e) {
+				throw new FileOpenFailedException(e);
+			}
 		}
     }
 }
