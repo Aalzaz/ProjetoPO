@@ -5,9 +5,8 @@ public class CategoryCriteria extends SearchCriteria{
 	private static final long serialVersionUID = 202608261200L; 
 
 	@Override
-	public String myName() {
-		return "CATEGORIA";
-	}
+	public String myName() { return "CATEGORIA"; }
+	
 	@Override
 	public boolean matches(Product prd, String term) {
 		try{

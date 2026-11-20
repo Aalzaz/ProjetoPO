@@ -1,6 +1,4 @@
 package erp.app.company;
-
-import erp.app.exception.NotEnoughInventoryException;
 import erp.app.exception.UnknownCompanyKeyException;
 import erp.app.exception.UnknownProductKeyException;
 import erp.core.ErpManager;

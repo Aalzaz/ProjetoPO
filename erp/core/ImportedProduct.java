@@ -32,6 +32,7 @@ public class ImportedProduct extends Product{
 	public String extraString(){
 		return " - " + _originCountry + " - " + _customTax;
 	}
+	
 	@Override
 	String extraTypeInfo() {
 		return "IMPORTADO";

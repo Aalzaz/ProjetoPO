@@ -9,11 +9,13 @@ public class NationalProduct extends Product{
 	private static final int HIGH_PCT = 90, LOW_PCT = 130;
 
 	//Constructor----------------------------------------------------------------------------------
+
 	public NationalProduct(int id,String name, String category, int basePrice, int baseDeliveryTime) 
 							throws InvalidProductException{
 		super(id ,name, category, basePrice, baseDeliveryTime);
 	}
 	//----------------------------------------------------------------------------------------------
+
 	@Override 
 	double recommendPrice() {
 	int units = totalUnits();
@@ -23,10 +25,12 @@ public class NationalProduct extends Product{
 			return basePrice() * LOW_PCT / 100.0;
 	return basePrice();
 	}
+
 	@Override
 	public String extraString(){
 		return "";
 	}
+	
 	@Override
 	String extraTypeInfo() {
 		return "NACIONAL";

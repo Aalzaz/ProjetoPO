@@ -6,7 +6,7 @@ import erp.core.exception.*;
 
 import java.io.*;
 import java.util.Collection;
-import java.util.MissingResourceException;
+
 
 /**
  * The façade of the ERP core: the single entry point through which the
@@ -61,17 +61,22 @@ public class ErpManager {
 	 * @throws IOException if there is some error while serializing the state of the network to disk.
 	 **/
 	public void save() throws MissingFileAssociationException, IOException {
+		if (!_erp.hasUnsavedChanges())
+			return;
 		if (_filePath == null) 
 			throw new MissingFileAssociationException();
 		writeState(_filePath);
-		_erp.systemWasSaved();
 	}
 
 	private void writeState(String filePath) throws IOException {
+		_erp.systemWasSaved();
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
 			out.writeObject(_erp);
-    }
-}
+		} catch (IOException e) {
+			_erp.systemChanged();   
+			throw e;
+		}
+	}
 
 	/**
 	 * Saves the serialized application's state into the specified file. The current Erp
@@ -147,6 +152,6 @@ public class ErpManager {
 		_erp.updateStock(companyId, productId, units, factor);
 	}
 	public void registeShippingRate(String modalityName, int price, int time){
-		//TODO
+		_erp.registerShippingRate(modalityName, price, time);
 	}
 }

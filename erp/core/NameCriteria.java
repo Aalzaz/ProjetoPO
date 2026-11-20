@@ -8,6 +8,7 @@ public class NameCriteria extends SearchCriteria {
 	public String myName() {
 		return "NOME";
 	}
+	
 	@Override
 	public boolean matches(Product prd, String term) {
 		return prd.name().equalsIgnoreCase(term);

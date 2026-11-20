@@ -32,13 +32,19 @@ public abstract class Product implements Serializable, Comparable<Product> {
 		_supliesInCompany   = new HashMap<>();
 		_type 				= productTypeInit();
 	}
+
 	//Getters--------------------------------------------------------------------------------------
 	
 	public int id() { return _id; }
+
 	public int basePrice(){ return _basePrice;}
+
 	public int baseDeliveryTime(){ return _baseDeliveryTime; }
+
 	public ProductCategory category(){ return _category; }
+
 	public String name(){ return _name; }
+
 	public ProductType type(){ return _type; }
 	
 	public int totalUnits(){
@@ -48,6 +54,7 @@ public abstract class Product implements Serializable, Comparable<Product> {
 		}
 		return total;
 	}
+	
 	public SuppliedProduct suplyInCompany(Company cmp){
 		return _supliesInCompany.get(cmp.id());
 	}
@@ -55,7 +62,9 @@ public abstract class Product implements Serializable, Comparable<Product> {
 	//----------------------------------------------------------------------------------------------
 	
 	abstract double recommendPrice();
+
 	public abstract String extraString();
+	
 	abstract String extraTypeInfo();
 
 	public ProductCategory productCategoryInit(String category) throws InvalidProductException{

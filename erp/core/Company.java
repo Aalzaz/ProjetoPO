@@ -18,6 +18,7 @@ public class Company implements java.io.Serializable, Comparable<Company> {
 	private Map<Integer, SuppliedProduct>   _productSupplies;
 
 	//Constructor----------------------------------------------------------------------------------
+	
 	public Company(int id, String name) throws InvalidCompanyException{
 		nameVerifier(name);
 		_id              = id;
@@ -28,6 +29,7 @@ public class Company implements java.io.Serializable, Comparable<Company> {
 	//Getters--------------------------------------------------------------------------------------
 
 	public int id(){ return  _id; }
+
 	public String name(){ return _name; }
 	
 	public SuppliedProduct supply(Product prd) throws ProductNotSuppliedException {
@@ -36,6 +38,7 @@ public class Company implements java.io.Serializable, Comparable<Company> {
 			throw new ProductNotSuppliedException(_id, prd.id());
 		return sp;
 	}
+	
 	public Collection<SuppliedProduct> availableProducts() {
 		List<SuppliedProduct> availableProducts = new ArrayList<>(); 
 		for(SuppliedProduct sp: _productSupplies.values()){

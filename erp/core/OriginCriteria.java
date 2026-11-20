@@ -8,6 +8,7 @@ public class OriginCriteria extends SearchCriteria {
 	public String myName() {
 		return "ORIGEM";
 	}
+	
 	@Override
 	public boolean matches(Product prd, String term) {
 		return prd.matchesOrigin(term);

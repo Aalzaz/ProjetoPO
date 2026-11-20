@@ -12,6 +12,7 @@ public class SuppliedProduct implements Serializable{
 	private int     _units;
 
 //Constructor----------------------------------------------------------------------------------
+
 	public SuppliedProduct(Product prd, Company cmp, double factor, int units){
 		_company    = cmp;
 		_factor     = factor;
@@ -19,11 +20,15 @@ public class SuppliedProduct implements Serializable{
 		_product    = prd;
 		prd.supplyNewCompany(this);
 	}
+
 //Getters--------------------------------------------------------------------------------------
 
 	public int units(){ return _units; }
+
 	public Company company(){ return _company; }
+
 	public Product product(){ return _product; }
+	
 	public double factor(){ return _factor; }
 	
 	double price(){
@@ -36,9 +41,11 @@ public class SuppliedProduct implements Serializable{
 		_factor     = factor;
 		_units      = units;
 	}
+
 	public boolean isAvailable() {
 		return _units > 0;
 	}
+	
 	@Override 
 	public String toString(){
 		return String.format(Locale.US, "%d - %d - %d - %s - %.2f",

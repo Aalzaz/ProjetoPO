@@ -17,12 +17,14 @@ public class Client implements Serializable{
 	private Map<Integer, Basket>    _baskets;
 
 //Constructor----------------------------------------------------------------------------------
+
 	public Client(String email, String name) throws InvalidClientException{
 		verify(name, email);
 		_name    = name;
 		_email   = email;
 		_baskets = new HashMap<>();
 	}
+
 //Getters--------------------------------------------------------------------------------------
 
 	public Basket basketInCompany(Company cmp) {
@@ -32,11 +34,15 @@ public class Client implements Serializable{
 		}
 		return _baskets.get(cmp.id());
 	}
+
 	public String name(){ return _name; }
-	public String email(){ return _email;}
+
+	public String email(){ return _email; }
+
 	public double totalSpent(){ return _totalSpent; }
 
 //---------------------------------------------------------------------------------------------
+
 	private void verify(String name, String email) throws InvalidClientException{
 		stringVerifier(name);
 		stringVerifier(email);
@@ -50,7 +56,6 @@ public class Client implements Serializable{
 	void debit(double val){
 		_totalSpent += val;
 	}
-
 
 	@Override 
 	public String toString(){
