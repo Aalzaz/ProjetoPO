@@ -1,6 +1,6 @@
 package erp.core.exception;
 
-public class InvalidCompanyException  extends ParserException{
+public class InvalidCompanyException extends ParserException{
 	@java.io.Serial
 	private static final long serialVersionUID = 202616112100L;
 	

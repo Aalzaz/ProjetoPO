@@ -67,7 +67,7 @@ public abstract class Product implements Serializable, Comparable<Product> {
 	
 	abstract String extraTypeInfo();
 
-	public ProductCategory productCategoryInit(String category) throws InvalidProductException{
+	ProductCategory productCategoryInit(String category) throws InvalidProductException{
 		try{
 			return ProductCategory.valueOf(category);
 		} catch(IllegalArgumentException e){
@@ -75,7 +75,7 @@ public abstract class Product implements Serializable, Comparable<Product> {
 		}
 	}
 
-	public ProductType productTypeInit() throws InvalidProductException{
+	ProductType productTypeInit() throws InvalidProductException{
 		try{
 			return ProductType.valueOf(extraTypeInfo());
 		} catch(IllegalArgumentException e){

@@ -1,2 +1,5 @@
 /erp/**/*.class
 *.dat
+*.jar
+sources.txt
+/out

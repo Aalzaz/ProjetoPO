@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import erp.core.exception.InvalidClientException;
+import erp.core.exception.UnknownCompanyException;
 
 
 public class Client implements Serializable{
@@ -41,7 +42,12 @@ public class Client implements Serializable{
 
 	public double totalSpent(){ return _totalSpent; }
 
-//---------------------------------------------------------------------------------------------
+	
+	//---------------------------------------------------------------------------------------------
+	
+	public void addBasket(Company cmp) {
+		_baskets.put(cmp.id() , new Basket(this,cmp ));
+	}
 
 	private void verify(String name, String email) throws InvalidClientException{
 		stringVerifier(name);

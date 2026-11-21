@@ -31,9 +31,7 @@ public class SuppliedProduct implements Serializable{
 	
 	public double factor(){ return _factor; }
 	
-	double price(){
-		return Math.round(_product.recommendPrice() * _factor * 100) / 100.0;
-	}
+	double price(){ return Math.round(_product.recommendPrice() * _factor * 100) / 100.0; }
 
 //---------------------------------------------------------------------------------------------
 
